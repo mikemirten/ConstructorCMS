@@ -1,0 +1,12 @@
+parameters:
+    core.element_manager.class: App\CoreBundle\PageElementManager\ElementManager
+    core.form.content.class:    App\CoreBundle\Form\ElementType
+
+services:
+    core.element_manager:
+        class: %core.element_manager.class%
+
+    core.form.content:
+        class: %core.form.content.class%
+        tags:
+            - { name: form.type, alias: core_element }

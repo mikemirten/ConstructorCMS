@@ -1,0 +1,184 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+	<link rel="stylesheet" href="{{ asset('bundles/zextctrlpanel/css/panel.css') }}" />
+	
+	<style>
+		.glyphicon {
+			vertical-align: middle;
+			top:            0;
+		}
+		
+		.page-element {
+			margin:     1em;
+			padding:    1em;
+			min-height: 1em;
+			min-width:  1em;
+			position:   relative;
+		}
+		
+		.page-element-ctrl {
+			display:    none;
+			position:   absolute;
+			left:       0;
+			right:      0;
+			top:        0;
+			bottom:     0;
+			
+			background: rgba(100, 100, 127, 0.5);
+		}
+		
+		.page-element-ctrl-header {
+			background: rgb(100, 100, 127);
+			padding:    5px;
+			overflow:   hidden;
+		}
+		
+		.page-element-ctrl-title {
+			margin:  0;
+			padding: 5px;
+			color:   #FFF;
+		}
+		
+		.elements-highlight .page-element {
+			background-color: #F0F6F9;
+		}
+		
+		.page-element:hover .page-element-ctrl {
+			display: block;
+		}
+		
+		.modal-content {
+			background-color: #f3f6f9;
+		}
+		
+		.modal-body {
+			background-color: #fff;
+		}
+		
+		.modal-body p {
+			font-size: 14px;
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+	<div class="container" id="pageContainer">
+	{% for placement in page.placements %}
+		<section class="page-element js-page-element" id="placement_{{ placement.id }}">
+			{{ render(controller('AppCoreBundle:Page:element', {'element': placement.element })) }}
+			
+			<div class="page-element-ctrl" id="page_element_ctrl_{{ placement.element.id }}">
+				<div class="page-element-ctrl-header">
+					<h4 class="page-element-ctrl-title pull-left">{{ placement.element.title }}</h4>
+
+					<div class="btn-group pull-right">
+						<button class="btn btn-default btn-sm">
+							<span class="glyphicon glyphicon-edit"></span> Edit
+						</button>
+
+						<button class="btn btn-default btn-sm js-content-remove-btn" data-id="{{ placement.id }}" data-title="{{ placement.element.title }}">
+							<span class="glyphicon glyphicon-remove"></span> Remove
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endfor %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A==" crossorigin="anonymous"></script>
+	
+	<script src="{{ asset('bundles/zextctrlpanel/js/panel.js') }}"></script>
+	<script src="{{ asset('bundles/appcore/js/core.js') }}"></script>
+	
+	<script>
+		$(function() {
+			$('#pageContainer').sortable({
+				start: function() {
+					$(this).addClass('elements-highlight');
+				},
+				stop: function() {
+					$(this).removeClass('elements-highlight');
+				}
+			});
+			
+			$('.js-content-remove-btn').click(function() {
+				var button = $(this);
+				
+				var modal = application.modal({
+					title:   'Warning',
+					content: '<p>Remove the element: <b>"' + button.attr('data-title') + '"</b> ?</p>',
+					buttons: [
+						{
+							content: 'Remove',
+							class:   'btn btn-danger',
+							click: function() {
+								var id = button.attr('data-id');
+								
+								$.ajax('/app_dev.php/remove_element/' + id, {
+									success: function(response) {
+										if (response.success) {
+											$('#placement_' + id).remove();
+											modal.modal('hide');
+										}
+									}
+								});
+								
+							}
+						}
+					]
+				});
+			});
+			
+			$.ajax('/app_dev.php/element_list', {
+				success: function(response) {
+					var panel = ctrlPanel.create({
+						id:    'editControl',
+						title: 'Control'
+					});
+					
+					$.each(response.data, function() {
+						var name = this.name;
+						var desc = this.description;
+						
+						panel.addElement({
+							title: 'Create "' + desc + '"',
+							icon:  this.icon,
+							click: function() {
+								$.ajax('/app_dev.php/create_element/1/' + name, {
+									success: function(response) {
+										var element = $('<div>', {class: 'page-element'});
+										
+										element.append(response);
+										
+										application.modal({
+											title:   'Create "' + desc + '"',
+											size:    'large',
+											content: element,
+											buttons: [
+												{
+													content: 'Create',
+													class:   'btn btn-primary',
+													click:   function() {
+														$('#core_element_form').submit();
+													}
+												}
+											]
+										});
+									}
+								});
+							}
+						});
+					});
+				}
+			});
+		});
+	</script>
+{% endblock %}

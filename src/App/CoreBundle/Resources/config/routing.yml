@@ -1,0 +1,19 @@
+app_core_page:
+    path:     /page/{page}
+    defaults: { _controller: AppCoreBundle:Page:page }
+    
+app_core_element:
+    path:     /element/{element}
+    defaults: { _controller: AppCoreBundle:Page:element }
+
+app_core_create_element:
+    path:     /create_element/{page}/{elementName}
+    defaults: { _controller: AppCoreBundle:Element:create }
+    
+app_core_remove_elememt:
+    path:     /remove_element/{placement}
+    defaults: { _controller: AppCoreBundle:Element:remove }
+    
+app_core_element_list:
+    path:     /element_list
+    defaults: { _controller: AppCoreBundle:Element:list }
