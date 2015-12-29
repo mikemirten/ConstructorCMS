@@ -1,0 +1,111 @@
+.ctrl-panel {
+	color:        #FFF;
+	background:   #567;
+	position:     absolute;
+	width:        240px;
+	height:       160px;
+	box-shadow:   0 0 5px rgba(0, 0, 0, 0.35);
+	border-style: solid;
+	border-width: 1px;
+	border-color: #789 #345 #345 #789;
+}
+
+.ctrl-panel.draggable {
+	position: absolute;
+}
+
+.ctrl-panel-header {
+	overflow: hidden;
+	cursor:   default;
+}
+
+.ctrl-panel-title {
+	display:        inline-block;
+	margin:         0;
+	padding:        0 6px;
+	font-size:      16px;
+	line-height:    28px;
+	vertical-align: middle;
+}
+
+.ctrl-panel-btn,
+.ctrl-panel-header-btn {
+	display:        inline-block;
+	margin:         0;
+	padding:        0;
+	vertical-align: middle;
+	text-align:     center;
+	background:     transparent;
+	border:         none;
+}
+
+.ctrl-panel-btn {
+	min-width:   40px;
+	font-size:   16px;
+	line-height: 40px;
+}
+
+.ctrl-panel-header-btn {
+	min-width:   28px;
+	font-size:   12px;
+	line-height: 28px;
+	color:       #000;
+}
+
+.ctrl-panel-header-btn:hover {
+	color:      #FFF;
+	background: #789;
+}
+
+.ctrl-panel-body {
+	background: #345;
+	overflow:   hidden;
+	position:   absolute;
+	top:        28px;
+	left:       4px;
+	right:      4px;
+	bottom:     24px;
+	box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
+	min-height: 40px;
+	min-width:  40px;
+}
+
+.ctrl-panel-btn:hover {
+	background: #789;
+}
+
+.ctrl-panel-footer {
+	overflow: hidden;
+	position: absolute;
+	left:     0;
+	right:    0;
+	bottom:   0;
+}
+
+.ctrl-panel-info {
+	display:     inline-block;
+	margin:      0;
+	padding:     4px;
+	font-size:   14px;
+	line-height: 16px;
+}
+
+.ctrl-panel-select {
+	display:    inline-block;
+	margin:     2px;
+	padding:    0;
+	display:    inline-block;
+	background: #FFF;
+}
+
+.ctrl-panel-select-element {
+	color:          #000;
+	vertical-align: top;
+}
+
+.ctrl-panel-select-value {
+	display:     inline-block;
+	line-height: 40px;
+	font-size:   16px;
+	padding:     0 8px;
+}

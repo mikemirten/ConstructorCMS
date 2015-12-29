@@ -17,6 +17,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new App\CoreBundle\AppCoreBundle(),
             new App\ContentBundle\AppContentBundle(),
+            new Zext\CtrlPanelBundle\ZextCtrlPanelBundle(),
 			new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle()
         );
 
