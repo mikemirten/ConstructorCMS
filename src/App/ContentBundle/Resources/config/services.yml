@@ -1,0 +1,23 @@
+parameters:
+    content.page_element.content.class: App\ContentBundle\PageElement\ContentElement
+    
+    content.form.content.class: App\ContentBundle\Form\ContentType
+    content.form.wysiwyg.class: App\ContentBundle\Form\WysiwygType
+
+services:
+    core.page_element.content:
+        class:     %content.page_element.content.class%
+        arguments: [ "@doctrine" ]
+        tags:
+            - { name: core.page_element }
+
+    content.form.content:
+        class: %content.form.content.class%
+        tags:
+            - { name: form.type, alias: content_element }
+            
+    content.form.wysiwyg:
+        class: %content.form.wysiwyg.class%
+        tags:
+            - { name: form.type, alias: wysiwyg }
+        

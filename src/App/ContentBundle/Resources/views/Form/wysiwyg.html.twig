@@ -1,0 +1,23 @@
+{% block wysiwyg_widget %}
+	<textarea id="{{ id }}" name="{{ full_name }}">{{ value }}</textarea>
+	
+	<script>
+		$(function() {
+			if (typeof tinymce === 'undefined') {
+				var script = $('<script>', {
+					type: 'text/javascript',
+					src:  '/bundles/stfalcontinymce/vendor/tinymce/tinymce.min.js'
+				});
+				
+				$(document.documentElement).append(script);
+			}
+			
+			tinymce.init({
+				selector: '#{{ id }}',
+				plugins:  'fullscreen',
+				menubar:  'edit format',
+				toolbar:  'undo redo | bold italic | alignleft aligncenter alignright alignjustify | fullscreen'
+			});
+		});
+	</script>
+{% endblock %}
