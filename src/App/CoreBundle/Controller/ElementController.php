@@ -58,6 +58,38 @@ class ElementController extends Controller
 	}
 	
 	/**
+	 * Sort elements page
+	 * 
+	 * @param  Request $request
+	 * @param  Page    $page
+	 * @return JsonResponse
+	 * @throws \RuntimeException
+	 */
+	public function sortAction(Request $request, Page $page)
+	{
+		$listRaw = $request->get('list');
+		$list    = json_decode($listRaw, true);
+		
+		if ($list === null) {
+			throw new \RuntimeException('List decoding error');
+		}
+		
+		$placements = $page->getPlacements();
+		$manager    = $this->getDoctrine()->getManager();
+		
+		foreach ($list as $priority => $id) {
+			$placements[$id]->setPriority($priority);
+			$manager->persist($placements[$id]);
+		}
+		
+		$manager->flush();
+		
+		return new JsonResponse([
+			'success' => true
+		]);
+	}
+	
+	/**
 	 * Remove element
 	 * 
 	 * @param  PageElementPlacement $placement

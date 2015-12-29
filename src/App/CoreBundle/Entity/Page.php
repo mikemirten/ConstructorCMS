@@ -39,7 +39,8 @@ class Page
 	/**
 	 * @var ArrayCollection | PageElementPlacement[]
 	 * 
-	 * @ORM\OneToMany(targetEntity="PageElementPlacement", mappedBy="page", cascade={"all"})
+	 * @ORM\OneToMany(targetEntity="PageElementPlacement", mappedBy="page", cascade={"all"}, indexBy="id")
+	 * @ORM\OrderBy({"priority" = "ASC"})
 	 */
 	private $placements;
 

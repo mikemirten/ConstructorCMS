@@ -65,9 +65,9 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container" id="pageContainer">
+	<div class="container" id="pageContainer" data-page-id="{{ page.id }}">
 	{% for placement in page.placements %}
-		<section class="page-element js-page-element" id="placement_{{ placement.id }}">
+		<section class="page-element js-page-element" id="placement_{{ placement.id }}" data-id="{{ placement.id }}">
 			{{ render(controller('AppCoreBundle:Page:element', {'element': placement.element })) }}
 			
 			<div class="page-element-ctrl" id="page_element_ctrl_{{ placement.element.id }}">
@@ -100,12 +100,27 @@
 	
 	<script>
 		$(function() {
-			$('#pageContainer').sortable({
+			var container = $('#pageContainer');
+			
+			container.sortable({
 				start: function() {
 					$(this).addClass('elements-highlight');
 				},
 				stop: function() {
 					$(this).removeClass('elements-highlight');
+					
+					var list = [];
+					
+					container.find('.js-page-element').each(function() {
+						var id = $(this).attr('data-id');
+						list.push(parseInt(id));
+					});
+					
+					$.ajax({
+						url:     '/app_dev.php/placement_sort/' + container.attr('data-page-id'),
+						method:  'POST',
+						data:    { list: JSON.stringify(list) }
+					});
 				}
 			});
 			

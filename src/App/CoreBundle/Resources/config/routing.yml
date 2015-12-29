@@ -17,3 +17,7 @@ app_core_remove_elememt:
 app_core_element_list:
     path:     /element_list
     defaults: { _controller: AppCoreBundle:Element:list }
+    
+app_core_placement_sort:
+    path:     /placement_sort/{page}
+    defaults: { _controller: AppCoreBundle:Element:sort }
