@@ -16,7 +16,12 @@
 				selector: '#{{ id }}',
 				plugins:  'fullscreen',
 				menubar:  'edit format',
-				toolbar:  'undo redo | bold italic | alignleft aligncenter alignright alignjustify | fullscreen'
+				toolbar:  'undo redo | bold italic | alignleft aligncenter alignright alignjustify | fullscreen',
+				setup:    function(editor) {
+					editor.on('change', function() {
+						editor.save();
+					});
+				}
 			});
 		});
 	</script>

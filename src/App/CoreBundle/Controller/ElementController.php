@@ -45,6 +45,12 @@ class ElementController extends Controller
 			$manager->persist($element);
 			$manager->flush();
 			
+			if ($request->isXmlHttpRequest()) {
+				return $this->forward('AppCoreBundle:Page:element', [
+					'element' => $pageElement
+				]);
+			}
+			
 			return $this->redirectToRoute('app_core_page', ['page' => $page->getId()]);
 		}
 		
@@ -117,7 +123,7 @@ class ElementController extends Controller
 	public function createElementForm(Page $page, PageElementInterface $element)
 	{
 		$form = $this->createForm('core_element', null, [
-			'action' => $this->generateUrl('app_core_create_element', [
+			'action' => $this->generateUrl('core_element_create', [
 				'page'        => $page->getId(),
 				'elementName' => $element->getName()
 			])
@@ -137,17 +143,23 @@ class ElementController extends Controller
 	 * 
 	 * @return JsonResponse
 	 */
-	public function listAction()
+	public function listAction(Page $page)
 	{
 		$elements = $this->get('core.element_manager')->getElements();
 		
 		return new JsonResponse([
 			'data' => array_map(
-				function(PageElementInterface $element) {
+				function(PageElementInterface $element) use($page) {
+					$url = $this->generateUrl('core_element_create', [
+						'page'        => $page->getId(),
+						'elementName' => $element->getName()
+					]);
+				
 					return (object) [
 						'name'        => $element->getName(),
 						'icon'        => $element->getIcon(),
-						'description' => $element->getDescription()
+						'description' => $element->getDescription(),
+						'url'         => $url
 					];
 				},
 			$elements)

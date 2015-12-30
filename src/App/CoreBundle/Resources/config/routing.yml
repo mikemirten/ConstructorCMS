@@ -1,23 +1,23 @@
-app_core_page:
+core_page:
     path:     /page/{page}
     defaults: { _controller: AppCoreBundle:Page:page }
     
-app_core_element:
+core_element:
     path:     /element/{element}
     defaults: { _controller: AppCoreBundle:Page:element }
 
-app_core_create_element:
-    path:     /create_element/{page}/{elementName}
+core_element_create:
+    path:     /element/create/{page}/{elementName}
     defaults: { _controller: AppCoreBundle:Element:create }
     
-app_core_remove_elememt:
-    path:     /remove_element/{placement}
-    defaults: { _controller: AppCoreBundle:Element:remove }
-    
-app_core_element_list:
-    path:     /element_list
+core_element_list:
+    path:     /element/list/{page}
     defaults: { _controller: AppCoreBundle:Element:list }
     
-app_core_placement_sort:
-    path:     /placement_sort/{page}
+core_placement_sort:
+    path:     /placement/sort/{page}
     defaults: { _controller: AppCoreBundle:Element:sort }
+    
+core_placement_remove:
+    path:     /placement/remove/{placement}
+    defaults: { _controller: AppCoreBundle:Element:remove }
