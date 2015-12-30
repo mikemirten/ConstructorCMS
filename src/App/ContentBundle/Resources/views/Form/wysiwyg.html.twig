@@ -14,9 +14,9 @@
 			
 			tinymce.init({
 				selector: '#{{ id }}',
-				plugins:  'fullscreen',
+				plugins:  'textcolor colorpicker link image fullscreen',
 				menubar:  'edit format',
-				toolbar:  'undo redo | bold italic | alignleft aligncenter alignright alignjustify | fullscreen',
+				toolbar:  'undo redo | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor | link image | fullscreen',
 				setup:    function(editor) {
 					editor.on('change', function() {
 						editor.save();
