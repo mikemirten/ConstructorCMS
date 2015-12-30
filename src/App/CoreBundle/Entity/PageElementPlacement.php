@@ -31,7 +31,7 @@ class PageElementPlacement
 	/**
 	 * @var PageElement
 	 * 
-	 * @ORM\ManyToOne(targetEntity="PageElement", inversedBy="placements", fetch="EAGER", cascade={"all"})
+	 * @ORM\ManyToOne(targetEntity="PageElement", inversedBy="placements", fetch="EAGER", cascade={"persist"})
 	 */
 	private $element;
 	
