@@ -1,6 +1,8 @@
 $(function() {
 	var container = $('#pageContainer');
+	var elements  = container.find('.page-element');
 
+	// Elements sorting
 	container.sortable({
 		start: function() {
 			$(this).addClass('elements-highlight');
@@ -10,7 +12,7 @@ $(function() {
 
 			var list = [];
 
-			container.find('.js-page-element').each(function() {
+			container.find('.page-element').each(function() {
 				var id = $(this).attr('data-id');
 				list.push(parseInt(id));
 			});
@@ -23,22 +25,31 @@ $(function() {
 		}
 	});
 
-	$('.js-content-remove-btn').click(function() {
+	var elementEdit = function()
+	{
+		
+	};
+	
+	var elementRemove = function(element)
+	{
 		var button = $(this);
 
 		var modal = application.modal({
 			title:   'Warning',
-			content: '<p>Remove the element: <b>"' + button.attr('data-title') + '"</b> ?</p>',
+			content: '<p>Remove the element: <b>"' + element.attr('data-title') + '"</b> ?</p>',
 			buttons: [
 				{
-					content: 'Remove',
-					class:   'btn btn-danger',
-					click:   function() {
+					title: 'Remove',
+					class: 'btn btn-danger',
+					click: function() {
+						var url = container.attr('data-url-remove');
+						var id  = element.attr('data-id');
+						
 						$.ajax({
-							url:     button.attr('data-url'),
+							url:     url.replace('placementId', id),
 							success: function(response) {
 								if (response.success) {
-									$(button.attr('data-target')).remove();
+									element.remove();
 									modal.modal('hide');
 								}
 							}
@@ -48,8 +59,44 @@ $(function() {
 				}
 			]
 		});
+	};
+	
+	var addElementControl = function(element)
+	{
+		var panel   = $('<div>', {class: 'page-element-ctrl'});
+		var header  = $('<div>', {class: 'page-element-ctrl-header'});
+		var title   = $('<h4>', {class: 'page-element-ctrl-title pull-left'});
+		var control = $('<div>', {class: 'btn-group pull-right'});
+		
+		control.append(application.button({
+			icon:  'edit',
+			title: 'Edit',
+			class: 'btn btn-default btn-sm',
+			click: elementEdit
+		}));
+		
+		control.append(application.button({
+			icon:  'remove',
+			title: 'Remove',
+			class: 'btn btn-default btn-sm',
+			click: function() {
+				elementRemove(element);
+			}
+		}));
+		
+		title.html(element.attr('data-title'));
+		
+		header.append(title).append(control);
+		panel.append(header);
+		element.append(panel);
+	};
+
+	// Add control to elements
+	elements.each(function() {
+		addElementControl($(this));
 	});
 
+	// Page control panel
 	$.ajax({
 		url:     container.attr('data-url-elements'),
 		success: function(response) {
@@ -76,11 +123,10 @@ $(function() {
 									content: response,
 									buttons: [
 										{
-											content: 'Create',
-											class:   'btn btn-primary',
-											click:   function() {
+											title: 'Create',
+											type:  'primary',
+											click: function() {
 												$('#core_element_form').submit();
-												
 											}
 										}
 									]
@@ -96,9 +142,11 @@ $(function() {
 										success: function(response) {
 											modal.modal('hide');
 											
-											var element = $('<section>', {class: 'page-element js-page-element'});
+											var element = $('<section>', {class: 'page-element'});
 
 											element.append(response);
+											addElementControl(element);
+											
 											container.append(element);
 										}
 									});

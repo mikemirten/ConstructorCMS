@@ -17,6 +17,7 @@
 			min-height: 1em;
 			min-width:  1em;
 			position:   relative;
+			overflow:   hidden;
 		}
 		
 		.page-element-ctrl {
@@ -26,7 +27,6 @@
 			right:      0;
 			top:        0;
 			bottom:     0;
-			
 			background: rgba(100, 100, 127, 0.5);
 		}
 		
@@ -68,26 +68,11 @@
 	<div class="container" id="pageContainer" 
 		data-url-elements="{{ path('core_element_list', {page: page.id}) }}"
 		data-url-sort="{{ path('core_placement_sort', {page: page.id}) }}"
+		data-url-remove="{{ path('core_placement_remove', {placement: 'placementId'}) }}"
 	>
 	{% for placement in page.placements %}
-		<section class="page-element js-page-element" id="placement_{{ placement.id }}" data-id="{{ placement.id }}">
+		<section class="page-element" data-id="{{ placement.id }}" data-title="{{ placement.element.title }}">
 			{{ render(controller('AppCoreBundle:Page:element', {'element': placement.element })) }}
-			
-			<div class="page-element-ctrl" id="page_element_ctrl_{{ placement.element.id }}">
-				<div class="page-element-ctrl-header">
-					<h4 class="page-element-ctrl-title pull-left">{{ placement.element.title }}</h4>
-
-					<div class="btn-group pull-right">
-						<button class="btn btn-default btn-sm">
-							<span class="glyphicon glyphicon-edit"></span> Edit
-						</button>
-
-						<button class="btn btn-default btn-sm js-content-remove-btn" data-target="#placement_{{ placement.id }}" data-title="{{ placement.element.title }}" data-url="{{ path('core_placement_remove', {placement: placement.id}) }}">
-							<span class="glyphicon glyphicon-remove"></span> Remove
-						</button>
-					</div>
-				</div>
-			</div>
 		</section>
 	{% endfor %}
 	</div>

@@ -12,6 +12,59 @@ application = (function($) {
 	}
 	
 	/**
+	 * Create icon
+	 * 
+	 * @param   {String} name
+	 * @returns {jQuery}
+	 */
+	var createIcon = function(name)
+	{
+		return $('<span>', {class: 'glyphicon glyphicon-' + name});
+	}
+	
+	/**
+	 * Resolve button class
+	 * 
+	 * @param   {Object} options
+	 * @returns {String}
+	 */
+	var resolveButtonClass = function(options)
+	{
+		if (typeof options.class === 'undefined') {
+			if (typeof options.type === 'undefined') {
+				return 'btn btn-default';
+			}
+			
+			return 'btn btn-' + options.type;
+		}
+		
+		return options.class;
+	}
+	
+	/**
+	 * Resolve button content
+	 * 
+	 * @param   {Object} options
+	 * @returns {$ | String}
+	 */
+	var resolveButtonContent = function(options)
+	{
+		if (typeof options.title === 'undefined') {
+			if (typeof options.icon === 'undefined') {
+				throw 'Title or icon must be defined';
+			}
+			
+			return createIcon(options.icon);
+		}
+		
+		if (typeof options.icon === 'undefined') {
+			return options.title;
+		}
+		
+		return [createIcon(options.icon), '&nbsp;', options.title];
+	}
+	
+	/**
 	 * Create button
 	 * 
 	 * @param   {Object} options
@@ -19,17 +72,12 @@ application = (function($) {
 	 */
 	var createButton = function(options)
 	{
-		if (typeof options.content === 'undefined') {
-			throw 'Content must be defined';
-		}
+		var button = $('<button>', {
+			type:  'button',
+			class: resolveButtonClass(options)
+		});
 		
-		var btnClass = (typeof options.class === 'undefined')
-			? 'btn btn-default'
-			: options.class;
-		
-		var button = $('<button>', {type:  'button', class: btnClass});
-		
-		button.html(options.content);
+		button.html(resolveButtonContent(options));
 		
 		if (typeof options.click !== 'undefined') {
 			button.click(options.click);
@@ -107,6 +155,17 @@ application = (function($) {
 	}
 	
 	return {
+		/**
+		 * Create button
+		 * 
+		 * @param   {Object} options
+		 * @returns {jQuery}
+		 */
+		button: function(options)
+		{
+			return createButton(options);
+		},
+		
 		/**
 		 * Create modal window
 		 * 
