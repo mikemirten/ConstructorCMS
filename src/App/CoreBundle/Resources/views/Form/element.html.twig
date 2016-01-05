@@ -1,0 +1,7 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block form %}
+	{{ form_start(form, {attr: {class: 'js-element-form'} }) }}
+		{{- block('form_rows') -}}
+	{{ form_end(form) }}
+{% endblock %}

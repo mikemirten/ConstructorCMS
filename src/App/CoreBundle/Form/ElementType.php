@@ -15,7 +15,6 @@ class ElementType extends AbstractType
 	{
 		$resolver->setDefaults([
 			'data_class' => 'App\CoreBundle\Entity\PageElement',
-			'attr'       => ['id' => $this->getName() . '_form']
 		]);
 	}
 	

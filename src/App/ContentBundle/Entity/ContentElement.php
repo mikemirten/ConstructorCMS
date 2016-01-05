@@ -4,49 +4,22 @@ namespace App\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use App\CoreBundle\Entity\PageElement;
+
 /**
  * ContentElement
  *
  * @ORM\Table(name="content_element")
  * @ORM\Entity()
  */
-class ContentElement
+class ContentElement extends PageElement
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     */
-    private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="content", type="text")
      */
     private $content;
-
-	/**
-	 * Set id
-	 * 
-	 * @param  string
-	 * @return ContentElement
-	 */
-	public function setId($id)
-	{
-		$this->id = $id;
-	}
-	
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set content
@@ -70,5 +43,13 @@ class ContentElement
     {
         return $this->content;
     }
+	
+	/**
+     * {@inheritdoc}
+     */
+	public function getName()
+	{
+		return 'core.content';
+	}
 }
 

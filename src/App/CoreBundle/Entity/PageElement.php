@@ -10,8 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="page_element")
  * @ORM\Entity()
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string", length=255)
  */
-class PageElement
+abstract class PageElement
 {
     /**
      * @var int
@@ -21,13 +23,6 @@ class PageElement
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
-    private $name;
 
 	/**
 	 * @var string
@@ -42,13 +37,6 @@ class PageElement
 	 * @ORM\OneToMany(targetEntity="PageElementPlacement", mappedBy="element")
 	 */
 	private $placements;
-	
-	/**
-	 * Element extension
-	 *
-	 * @var mixed
-	 */
-    private $extension;
 	
 	/**
 	 * Constructor
@@ -66,29 +54,6 @@ class PageElement
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param  string $name
-     * @return PageElement
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 	
 	/**
@@ -182,23 +147,8 @@ class PageElement
 	}
 	
 	/**
-	 * Set extension
-	 * 
-	 * @param mixed $extension
+	 * Get name of the element
 	 */
-	public function setExtension($extension)
-	{
-		$this->extension = $extension;
-	}
-	
-	/**
-	 * Get extension
-	 * 
-	 * @return mixed
-	 */
-	public function getExtension()
-	{
-		return $this->extension;
-	}
+	abstract public function getName();
 }
 

@@ -126,13 +126,13 @@ $(function() {
 											title: 'Create',
 											type:  'primary',
 											click: function() {
-												$('#core_element_form').submit();
+												$('.js-element-form').submit();
 											}
 										}
 									]
 								});
 
-								$('#core_element_form').submit(function(event) {
+								$('.js-element-form').submit(function(event) {
 									var form = $(this);
 
 									$.ajax({

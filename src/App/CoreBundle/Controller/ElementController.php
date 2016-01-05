@@ -23,26 +23,16 @@ class ElementController extends Controller
 	 */
 	public function createAction(Request $request, Page $page, $elementName)
 	{
-		$elementType = $this->get('core.element_manager')->getElement($elementName);
-		
-		$form = $this->createElementForm($page, $elementType);
+		$form = $this->createElementForm($page, $elementName);
 		$form->handleRequest($request);
 		
 		if ($form->isValid()) {
 			$manager = $this->getDoctrine()->getManager();
 			
 			$pageElement = $form->getData();
-			$pageElement->setName($elementName);
-			
 			$page->addElement($pageElement);
 			
 			$manager->persist($page);
-			$manager->flush();
-			
-			$element = $pageElement->getExtension();
-			$element->setId($pageElement->getId());
-			
-			$manager->persist($element);
 			$manager->flush();
 			
 			if ($request->isXmlHttpRequest()) {
@@ -60,6 +50,27 @@ class ElementController extends Controller
 		
 		return $this->render($scriptName, [
 			'createForm' => $form->createView()
+		]);
+	}
+	
+	/**
+	 * Create form for element
+	 * 
+	 * @param  Page   $page
+	 * @param  string $name
+	 * @return \Symfony\Component\Form\Form
+	 */
+	protected function createElementForm(Page $page, $name)
+	{
+		$descriptor = $this->get('core.element_manager')->getElement($name);
+		
+		$action = $this->generateUrl('core_element_create', [
+			'page'        => $page->getId(),
+			'elementName' => $descriptor->getName()
+		]);
+		
+		return $this->createForm($descriptor->getCreateFormName(), null, [
+			'action' => $action
 		]);
 	}
 	
@@ -111,31 +122,6 @@ class ElementController extends Controller
 		return new JsonResponse([
 			'success' => true
 		]);
-	}
-	
-	/**
-	 * Create form
-	 * 
-	 * @param  Page                 $page
-	 * @param  PageElementInterface $element
-	 * @return \Symfony\Component\Form\Form
-	 */
-	public function createElementForm(Page $page, PageElementInterface $element)
-	{
-		$form = $this->createForm('core_element', null, [
-			'action' => $this->generateUrl('core_element_create', [
-				'page'        => $page->getId(),
-				'elementName' => $element->getName()
-			])
-		]);
-		
-		$elementType = $element->getCreateFormName();
-		
-		if ($elementType !== null) {
-			$form->add('extension', $elementType, ['label' => false]);
-		}
-		
-		return $form;
 	}
 	
 	/**
