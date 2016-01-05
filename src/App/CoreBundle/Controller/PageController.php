@@ -12,11 +12,19 @@ class PageController extends Controller
 	/**
 	 * Render page
 	 * 
-	 * @param  Page $page
+	 * @param  int $pageId
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function pageAction(Page $page)
-	{	
+	public function pageAction($pageId)
+	{
+		$page = $this->getDoctrine()
+			->getRepository('AppCoreBundle:Page')
+			->getPageWithElements((int) $pageId);
+		
+		if ($page === null) {
+			throw $this->createNotFoundException();
+		}
+		
 		return $this->render('AppCoreBundle:Page:page.html.twig', [
 			'page' => $page
 		]);

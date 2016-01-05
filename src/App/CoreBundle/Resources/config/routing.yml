@@ -1,5 +1,5 @@
 core_page:
-    path:     /page/{page}
+    path:     /page/{pageId}
     defaults: { _controller: AppCoreBundle:Page:page }
     
 core_element:

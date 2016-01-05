@@ -71,13 +71,8 @@ class ContentElement implements PageElementInterface
      */
 	public function getTemplateData(PageElement $element)
 	{
-		$content = $this->doctrine
-			->getRepository('AppContentBundle:ContentElement')
-			->find($element->getId());
-		
 		return [
-			'element' => $element,
-			'content' => $content
+			'element' => $element
 		];
 	}
 }
