@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+		
+        {% block stylesheets %}
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+			<link rel="stylesheet" href="/bundles/appadmin/css/admin.css" />
+		{% endblock %}
+		
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="adm-body">
+		<div class="adm-wrapper">
+			{% block header %}
+				<header class="adm-header">
+					<button class="adm-header-logo">
+						<span class="glyphicon glyphicon-th-large"></span>
+					</button>
+					
+					<h1 class="adm-header-title">Constructor <span class="adm-header-title-part">CMS</span></h1>
+				</header>
+			{% endblock %}
+
+			{% block body %}
+				<div class="adm-main">
+					<aside class="adm-left-nav">
+						<nav class="adm-navigation">
+							<ul class="adm-nav-panel">
+								<li class="adm-nav-element adm-nav-element-lg active">
+									<button class="adm-nav-btn">
+										<span class="glyphicon glyphicon-user"></span>
+									</button>
+								</li>
+
+								<li class="adm-nav-element adm-nav-element-lg">
+									<button class="adm-nav-btn">
+										<span class="glyphicon glyphicon-file"></span>
+									</button>
+								</li>
+								
+								<li class="adm-nav-element adm-nav-element-lg">
+									<button class="adm-nav-btn">
+										<span class="glyphicon glyphicon-cog"></span>
+									</button>
+								</li>
+							</ul>
+						</nav>
+						
+						<nav class="adm-navigation" style="display: none;">
+							<ul class="adm-nav-panel">
+								<li class="adm-nav-element">
+									<button class="adm-nav-btn">
+										<span class="glyphicon glyphicon-alert"></span>&nbsp;Option
+									</button>
+								</li>
+
+								<li class="adm-nav-element">
+									<button class="adm-nav-btn">
+										<span class="glyphicon glyphicon-alert"></span>&nbsp;Option
+									</button>
+								</li>
+							</ul>
+						</nav>
+					</aside>
+
+					<section class="adm-content">
+
+					</section>
+				</div>
+			{% endblock %}
+
+			{% block footer %}
+				<footer class="adm-footer">
+
+				</footer>
+			{% endblock %}
+		</div>
+		
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

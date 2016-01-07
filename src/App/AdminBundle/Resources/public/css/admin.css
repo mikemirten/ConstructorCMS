@@ -1,0 +1,142 @@
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script);
+
+.adm-wrapper {
+	background: #012;
+	position:   absolute;
+	top:        0;
+	bottom:     0;
+	left:       0;
+	right:      0;
+}
+
+.adm-header {
+	font-size:  0;
+	background: #234;
+	background: linear-gradient(0deg, #234, #345);
+	height:     64px;
+}
+
+.adm-header-logo {
+	display:    inline-block;
+	width:      64px;
+	height:     64px;
+	background: #456;
+	background: linear-gradient(0deg, #456, #567);
+	text-align: center;
+	font-size:  32px;
+	transition: font-size 0.25s;
+	border:     none;
+	margin:     0;
+	padding:    0;
+	color:      #123;
+}
+
+.adm-header-title-part {
+	color: #BEC;
+}
+
+.adm-header-logo > .glyphicon {
+	line-height: 64px;
+}
+
+.adm-header-logo:hover {
+	font-size: 40px;
+}
+
+.adm-header-title {
+	display:        inline-block;
+	line-height:    64px;
+	font-size:      32px;
+	font-family:    'Dancing Script', cursive;
+	color:          #EEE;
+	padding:        0 16px;
+	margin:         0;
+	vertical-align: top;
+	text-shadow:    0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.adm-left-nav {
+	position:   absolute;
+	overflow:   hidden;
+	top:        64px;
+	bottom:     0;
+	background: #123;
+	z-index:    10;
+}
+
+.adm-content {
+	position:   absolute;
+	overflow:   hidden;
+	top:        64px;
+	bottom:     0;
+	left:       64px;
+	right:      0;
+	background: #F6F6F6;
+	z-index:    20;
+}
+
+.adm-left-nav:hover {
+	z-index: 30;
+}
+
+.adm-navigation {
+	position: relative;
+	float:    left;
+}
+
+.adm-nav-panel {
+	margin:     0;
+	padding:    0;
+	list-style: none;
+}
+
+.adm-nav-element {
+	margin:      0;
+	padding:     0;
+	line-height: 1;
+	font-size:   0;
+}
+
+.adm-nav-element > .adm-nav-panel {
+	position:    absolute;
+	display:     none;
+	border-left: 4px solid #234;
+}
+
+.adm-nav-btn {
+	margin:     0;
+	padding:    0;
+	border:     none;
+	color:      #D3D6D9;
+	background: transparent;
+	font-size:  16px;
+	height:     32px;
+	min-width:  32px;
+	padding:    0 16px;
+}
+
+.adm-nav-btn > .glyphicon {
+	line-height: 32px;
+}
+
+.adm-nav-element-lg > .adm-nav-btn {
+	font-size: 32px;
+	height:    64px;
+	min-width: 64px;
+}
+
+.adm-nav-element-lg > .adm-nav-btn > .glyphicon {
+	line-height: 64px;
+}
+
+.adm-nav-element:hover {
+	background: #345;
+}
+
+.adm-nav-element:hover > .adm-nav-btn {
+	color: #FFF;
+}
+
+.adm-nav-element:hover > .adm-nav-panel {
+	display: inline-block;
+}
