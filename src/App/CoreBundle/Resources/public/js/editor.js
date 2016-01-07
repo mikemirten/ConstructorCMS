@@ -9,7 +9,8 @@ $(function() {
 		},
 		stop: function() {
 			$(this).removeClass('elements-highlight');
-
+		},
+		update: function() {
 			var list = [];
 
 			container.find('.page-element').each(function() {
