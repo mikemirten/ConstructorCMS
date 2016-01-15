@@ -17,22 +17,19 @@
 }
 
 .adm-header-logo {
-	display:    inline-block;
-	width:      64px;
-	height:     64px;
-	background: #456;
-	background: linear-gradient(0deg, #456, #567);
-	text-align: center;
-	font-size:  32px;
-	transition: font-size 0.25s;
-	border:     none;
-	margin:     0;
-	padding:    0;
-	color:      #123;
-}
-
-.adm-header-title-part {
-	color: #BEC;
+	display:        inline-block;
+	width:          64px;
+	height:         64px;
+	background:     #456;
+	background:     linear-gradient(0deg, #456, #567);
+	text-align:     center;
+	font-size:      32px;
+	transition:     font-size 0.25s;
+	border:         none;
+	margin:         0;
+	padding:        0;
+	color:          #123;
+	vertical-align: middle;
 }
 
 .adm-header-logo > .glyphicon {
@@ -48,11 +45,18 @@
 	line-height:    64px;
 	font-size:      32px;
 	font-family:    'Dancing Script', cursive;
-	color:          #EEE;
-	padding:        0 16px;
-	margin:         0;
-	vertical-align: top;
-	text-shadow:    0 0 5px rgba(0, 0, 0, 0.5);
+	color:          #123;
+	padding:        0 24px 0 16px;
+	margin:         0 24px 0 0;
+	vertical-align: middle;
+	text-shadow:    1px 1px 7px rgba(0, 0, 0, 0.35);
+	background:     #E9ECEE;
+	background:     linear-gradient(0deg, #E3E6E9, #E9ECEF);
+	border-radius:  0 32px 32px 0;
+}
+
+.adm-header-title-part {
+	color: #944;
 }
 
 .adm-left-nav {
@@ -73,6 +77,7 @@
 	right:      0;
 	background: #F6F6F6;
 	z-index:    20;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.35);
 }
 
 .adm-left-nav:hover {
@@ -139,4 +144,70 @@
 
 .adm-nav-element:hover > .adm-nav-panel {
 	display: inline-block;
+}
+
+.adm-header-nav {
+	display:        inline-block;
+	height:         64px;
+	line-height:    64px;
+	font-size:      0;
+}
+
+.adm-btn {
+	display:        inline-block;
+	font-size:      13px;
+	line-height:    28px;
+	border:         none;
+	padding:        0 12px;
+	margin:         0 8px;
+	vertical-align: middle;
+	color:          #000;
+	background:     #E3E6E9;
+	background:     linear-gradient(0deg, #D3D6D9, #F3F6F9);
+	border-radius:  2px;
+}
+
+.adm-btn:active {
+	box-shadow: inset 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.adm-btn.adm-btn-warning {
+	background: #EC7;
+	background: linear-gradient(0deg, #DB6, #FD8);
+}
+
+.adm-btn:hover {
+	background: #567;
+	background: linear-gradient(0deg, #567, #678);
+	color:      #FFF;
+}
+
+.adm-btn:hover.adm-btn-warning {
+	color: #FD8;
+}
+
+.adm-btn > .glyphicon {
+	top:            0;
+	vertical-align: middle;
+}
+
+.adm-btn-group {
+	display: inline-block;
+	margin:  0 8px;
+	padding: 0;
+}
+
+.adm-btn-group > .adm-btn {
+	margin:         0;
+	border-radius:  0;
+	border-left:    1px solid #234;
+}
+
+.adm-btn-group > .adm-btn:first-child {
+	border-radius: 2px 0 0 2px;
+	border-right:  none;
+}
+
+.adm-btn-group > .adm-btn:last-child {
+	border-radius: 0 2px 2px 0;
 }
