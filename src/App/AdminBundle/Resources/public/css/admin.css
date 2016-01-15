@@ -43,20 +43,20 @@
 .adm-header-title {
 	display:        inline-block;
 	line-height:    64px;
-	font-size:      32px;
+	font-size:      24px;
 	font-family:    'Dancing Script', cursive;
-	color:          #123;
+	color:          #9AB;
 	padding:        0 24px 0 16px;
 	margin:         0 24px 0 0;
 	vertical-align: middle;
 	text-shadow:    1px 1px 7px rgba(0, 0, 0, 0.35);
-	background:     #E9ECEE;
-	background:     linear-gradient(0deg, #E3E6E9, #E9ECEF);
+	background:     #123;
 	border-radius:  0 32px 32px 0;
+	border-right:   1px solid #012;
 }
 
 .adm-header-title-part {
-	color: #944;
+	color: #CED;
 }
 
 .adm-left-nav {
@@ -158,7 +158,7 @@
 	font-size:      13px;
 	line-height:    28px;
 	border:         none;
-	padding:        0 12px;
+	padding:        0 11px;
 	margin:         0 8px;
 	vertical-align: middle;
 	color:          #000;
@@ -172,18 +172,44 @@
 }
 
 .adm-btn.adm-btn-warning {
-	background: #EC7;
-	background: linear-gradient(0deg, #DB6, #FD8);
+	background:  #CA4;
+	color:       #FFF;
+	background:  linear-gradient(0deg, #B93, #DB5);
+	text-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
+}
+
+.adm-btn.adm-btn-success {
+	background:  #6A5;
+	color:       #FFF;
+	background:  linear-gradient(0deg, #594, #7B6);
+	text-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
+}
+
+.adm-btn.adm-btn-danger {
+	background:  #D55;
+	color:       #FFF;
+	background:  linear-gradient(0deg, #C44, #E66);
+	text-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
+}
+
+.adm-btn.adm-btn-info {
+	background:  #5AB;
+	color:       #FFF;
+	background:  linear-gradient(0deg, #49A, #6BC);
+	text-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
+}
+
+.adm-btn.adm-btn-primary {
+	background:  #27A;
+	color:       #FFF;
+	background:  linear-gradient(0deg, #169, #38B);
+	text-shadow: 0 0 4px rgba(0, 0, 0, 0.33);
 }
 
 .adm-btn:hover {
 	background: #567;
 	background: linear-gradient(0deg, #567, #678);
 	color:      #FFF;
-}
-
-.adm-btn:hover.adm-btn-warning {
-	color: #FD8;
 }
 
 .adm-btn > .glyphicon {
@@ -198,16 +224,27 @@
 }
 
 .adm-btn-group > .adm-btn {
-	margin:         0;
-	border-radius:  0;
-	border-left:    1px solid #234;
+	margin:        0;
+	border-radius: 0;
+	border-width:  1px;
+	border-style:  solid;
+	border-color:  rgba(192, 192, 192, 0.25) rgba(192, 192, 192, 0.25) rgba(64, 64, 64, 0.5) rgba(64, 64, 64, 0.5);
 }
 
 .adm-btn-group > .adm-btn:first-child {
 	border-radius: 2px 0 0 2px;
-	border-right:  none;
 }
 
 .adm-btn-group > .adm-btn:last-child {
 	border-radius: 0 2px 2px 0;
+}
+
+.adm-btn-drop {
+	padding-left:  7px;
+	padding-right: 7px;
+}
+
+.adm-btn-drop > .caret {
+	padding: 0;
+	margin:  0;
 }
