@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Zext\CtrlPanelBundle\ZextCtrlPanelBundle(),
 			new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new App\AdminBundle\AppAdminBundle(),
+            new App\UiBundle\AppUiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

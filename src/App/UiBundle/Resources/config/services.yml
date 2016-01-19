@@ -1,0 +1,15 @@
+parameters:
+    twig.extension.navigation.class: App\UiBundle\Twig\NavigationExtension
+    
+    ui.navigation_manager.class: App\UiBundle\Navigation\NavigationManager
+
+services:
+    twig.extension.navigation:
+        class:     %twig.extension.navigation.class%
+        arguments: [ @ui.navigation_manager ]
+        tags:  
+            - { name: twig.extension }
+    
+    ui.navigation_manager:
+        class:     %ui.navigation_manager.class%
+        arguments: [ @event_dispatcher ]
