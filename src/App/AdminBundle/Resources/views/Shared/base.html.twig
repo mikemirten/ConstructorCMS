@@ -11,62 +11,20 @@
 		
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+	
     <body class="adm-body">
 		<div class="adm-wrapper">
 			{% block header %}
-				<header class="adm-header">
-					<button class="adm-header-logo">
+				<header id="adm_header" class="adm-header adm-header">
+					<button id="adm_header_logo" class="adm-header-logo">
 						<span class="glyphicon glyphicon-cog"></span>
 					</button>
 					
 					<h1 class="adm-header-title">Constructor <span class="adm-header-title-part">CMS</span></h1>
 					
-					<nav class="adm-header-nav">						
-						<div class="adm-btn-group">
-							<button class="adm-btn"><span class="glyphicon glyphicon-user"></span>&nbsp;Test</button>
-							<button class="adm-btn">Test 44</button>
-							<button class="adm-btn">Test 4ww4</button>
-						</div>
-						
-						<div class="adm-btn-group">
-							<button class="adm-btn adm-btn-warning"><span class="glyphicon glyphicon-user"></span></button>
-							<button class="adm-btn adm-btn-success"><span class="glyphicon glyphicon-cog"></span></button>
-							<button class="adm-btn adm-btn-danger"><span class="glyphicon glyphicon-file"></span></button>
-							<button class="adm-btn adm-btn-info"><span class="glyphicon glyphicon-exclamation-sign"></span></button>
-						</div>
-						
-						<div class="adm-btn-group">
-							<button class="adm-btn adm-btn-warning">Warning</button>
-							<button class="adm-btn adm-btn-warning adm-btn-drop"><span class="caret"></span></button>
-						</div>
-							
-						<div class="adm-btn-group">
-							<button class="adm-btn adm-btn-success">Success</button>
-							<button class="adm-btn adm-btn-success adm-btn-drop"><span class="caret"></span></button>
-						</div>
-						
-						<div class="adm-btn-group">
-							<button class="adm-btn adm-btn-danger">Danger</button>
-							<button class="adm-btn adm-btn-danger adm-btn-drop"><span class="caret"></span></button>
-						</div>
-						
-						<div class="adm-btn-group">
-							<button class="adm-btn adm-btn-info">Info</button>
-							<button class="adm-btn adm-btn-info adm-btn-drop"><span class="caret"></span></button>
-						</div>
-						
-						<div class="adm-btn-group">
-							<button class="adm-btn adm-btn-primary">Primary</button>
-							<button class="adm-btn adm-btn-primary adm-btn-drop"><span class="caret"></span></button>
-						</div>
-					</nav>
+					{{ navigation('admin.header', 'App\AdminBundle:Navigation:header.html.twig') }}
 					
 					<nav class="adm-header-nav pull-right">
-						<div class="adm-btn-group">
-							<button class="adm-btn">Admin</button>
-							<button class="adm-btn adm-btn-drop"><span class="caret"></span></button>
-						</div>
-						
 						<button class="adm-btn-saucer">
 							<span class="glyphicon glyphicon-user"></span>
 						</button>
@@ -77,46 +35,10 @@
 			{% block body %}
 				<div class="adm-main">
 					<aside class="adm-left-nav">
-						<nav class="adm-navigation">
-							<ul class="adm-nav-panel">
-								<li class="adm-nav-element adm-nav-element-lg active">
-									<button class="adm-nav-btn">
-										<span class="glyphicon glyphicon-user"></span>
-									</button>
-								</li>
-
-								<li class="adm-nav-element adm-nav-element-lg">
-									<button class="adm-nav-btn">
-										<span class="glyphicon glyphicon-file"></span>
-									</button>
-								</li>
-								
-								<li class="adm-nav-element adm-nav-element-lg">
-									<button class="adm-nav-btn">
-										<span class="glyphicon glyphicon-cog"></span>
-									</button>
-								</li>
-							</ul>
-						</nav>
-						
-						<nav class="adm-navigation" style="display: none;">
-							<ul class="adm-nav-panel">
-								<li class="adm-nav-element">
-									<button class="adm-nav-btn">
-										<span class="glyphicon glyphicon-alert"></span>&nbsp;Option
-									</button>
-								</li>
-
-								<li class="adm-nav-element">
-									<button class="adm-nav-btn">
-										<span class="glyphicon glyphicon-alert"></span>&nbsp;Option
-									</button>
-								</li>
-							</ul>
-						</nav>
+						{{ navigation('admin.side', 'App\AdminBundle:Navigation:side.html.twig') }}
 					</aside>
 
-					<section class="adm-content">
+					<section id="adm_content" class="adm-content">
 
 					</section>
 				</div>
@@ -129,6 +51,43 @@
 			{% endblock %}
 		</div>
 		
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		{% endblock %}
+		
+		<script>
+			$(function() {
+				var logo    = $('#adm_header_logo');
+				var navs    = $('.js-adm-side-nav');
+				var buttons = $('.js-adm-side-btn');
+				var content = $('#adm_content');
+				
+				$(document).ajaxStart(function() {
+					logo.addClass('adm-header-logo-rotate');
+				}).ajaxStop(function() {
+					logo.removeClass('adm-header-logo-rotate');
+				});
+				
+				$('.js-adm-side-btn').click(function() {
+					var button = $(this);
+					
+					navs.hide();
+					$('#' + button.attr('data-target')).show();
+					
+					buttons.removeClass('active');
+					button.addClass('active');
+				});
+				
+				$('.js-adm-nav-btn').click(function() {
+					$.ajax({
+						url:     $(this).attr('data-url'),
+						success: function(result) {
+							content.html(result);
+						}
+					});
+					
+				});
+			});
+		</script>
     </body>
 </html>

@@ -1,0 +1,51 @@
+{% spaceless %}
+	<nav class="adm-header-nav">
+		{% for element in navigation %}
+			{% set type = element.type %}
+
+			{% if type == 'button' %}
+				{{ _self.button(element) }}
+			{% elseif type == 'dropdown' %}
+				{{ _self.dropdown(element) }}
+			{% elseif type == 'group' %}
+				{{ _self.group(element) }}
+			{% endif %}
+		{% endfor %}
+	</nav>
+{% endspaceless %}
+
+{% macro button(element) %}
+	<button class="adm-btn">
+		{% if element.icon is not null %}
+			<span class="glyphicon glyphicon-{{ element.icon }}"></span>
+		{% endif %}
+		
+		{{ element.title }}
+	</button>
+{% endmacro %}
+
+{% macro dropdown(element) %}
+	<button class="adm-btn adm-btn-drop">
+		{% if element.icon is not null %}
+			<span class="glyphicon glyphicon-{{ element.icon }}"></span>
+		{% endif %}
+		
+		{{ element.title }}
+		
+		<span class="caret"></span>
+	</button>
+{% endmacro %}
+
+{% macro group(element) %}
+	<div class="adm-btn-group">
+		{% for subelement in element.elements %}
+			{% set type = subelement.type %}
+
+			{% if type == 'button' %}
+				{{ _self.button(subelement) }}
+			{% elseif type == 'dropdown' %}
+				{{ _self.dropdown(subelement) }}
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endmacro %}

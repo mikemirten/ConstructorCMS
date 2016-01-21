@@ -1,4 +1,18 @@
 services:
-#    app_admin.example:
-#        class: App\AdminBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    admin.navigation.header:
+        class:     App\UiBundle\Navigation\Navigation
+        arguments: [ admin.header ]
+        tags:
+            - { name: ui.navigation }
+            
+    admin.navigation.side:
+        class:     App\UiBundle\Navigation\Navigation
+        arguments: [ admin.side ]
+        tags:
+            - { name: ui.navigation }
+            
+    admin.navigation.header.listener:
+        class: App\AdminBundle\EventListener\HeaderNavigationListener
+        tags:
+            - { name: kernel.event_listener, event: ui.navigation.admin.header, method: onHeadNavigation }
+            - { name: kernel.event_listener, event: ui.navigation.admin.side, method: onSideNavigation }
