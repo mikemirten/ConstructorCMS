@@ -10,10 +10,20 @@
 }
 
 .adm-header {
-	font-size:  0;
-	background: #234;
-	background: linear-gradient(0deg, #234, #345);
-	height:     64px;
+	position:    static;
+	font-size:   0;
+	background:  #234;
+	background:  linear-gradient(0deg, #234, #345);
+	height:      64px;
+	white-space: nowrap;
+}
+
+.adm-header-sm {
+	height: 48px;
+}
+
+.adm-header-sm .adm-header-sm-hide {
+	display: none;
 }
 
 .adm-header-logo {
@@ -32,12 +42,23 @@
 	vertical-align: middle;
 }
 
+.adm-header-sm .adm-header-logo {
+	height: 48px;
+}
+
+.adm-header-sm .adm-header-logo > .glyphicon {
+	line-height: 48px;
+}
+
 .adm-header-logo > .glyphicon {
 	line-height: 64px;
 }
-
 .adm-header-logo:hover {
 	font-size: 40px;
+}
+
+.adm-header-sm .adm-header-logo:hover {
+	font-size: 36px;
 }
 
 .adm-header-title {
@@ -55,6 +76,12 @@
 	border-right:   1px solid #012;
 }
 
+.adm-header-sm .adm-header-title {
+	line-height: 48px;
+	font-size:   20px;
+	padding:     0 20px 0 12px;
+}
+
 .adm-header-title-part {
 	color: #CED;
 }
@@ -66,6 +93,10 @@
 	bottom:     0;
 	background: #123;
 	z-index:    10;
+}
+
+.adm-header-sm ~ .adm-main > .adm-left-nav {
+	top: 48px;
 }
 
 .adm-content {
@@ -80,8 +111,16 @@
 	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.35);
 }
 
+.adm-header-sm ~ .adm-main > .adm-content {
+	top: 48px;
+}
+
 .adm-left-nav:hover {
 	z-index: 30;
+}
+
+.adm-left-nav:hover .adm-nav-btn.active {
+	background: #345;
 }
 
 .adm-navigation {
@@ -153,6 +192,15 @@
 	font-size:      0;
 }
 
+.adm-header-sm .adm-header-nav {
+	height:      48px;
+	line-height: 48px;
+}
+
+.adm-header-nav.adm-header-nav-em {
+	background: rgba(255, 255, 255, 0.125);
+}
+
 .adm-btn {
 	display:        inline-block;
 	font-size:      13px;
@@ -165,6 +213,13 @@
 	background:     #E3E6E9;
 	background:     linear-gradient(0deg, #D3D6D9, #F3F6F9);
 	border-radius:  2px;
+}
+
+.adm-header-sm .adm-btn {
+	font-size:   12px;
+	line-height: 24px;
+	margin:      0 6px;
+	padding:     0 9px;
 }
 
 .adm-btn:active {
@@ -223,6 +278,10 @@
 	padding: 0;
 }
 
+.adm-header-sm .adm-btn-group {
+	margin: 0 6px;
+}
+
 .adm-btn-group > .adm-btn {
 	margin:        0;
 	border-radius: 0;
@@ -266,8 +325,20 @@
 	border:         none;
 }
 
+.adm-header-sm .adm-btn-saucer {
+	width:       40px;
+	height:      40px;
+	line-height: 40px;
+	font-size:   22px;
+	margin:      0 4px;
+}
+
 .adm-btn-saucer > .glyphicon {
 	vertical-align: middle;
 	line-height:    48px;
 	top:            0;
+}
+
+.adm-header-sm .adm-btn-saucer > .glyphicon {
+	line-height: 40px;
 }
