@@ -42,6 +42,19 @@
 	vertical-align: middle;
 }
 
+.adm-header-logo-rotate > .glyphicon {
+	animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(180deg);
+	}
+}
+
 .adm-header-sm .adm-header-logo {
 	height: 48px;
 }
