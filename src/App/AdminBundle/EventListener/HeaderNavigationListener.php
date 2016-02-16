@@ -24,7 +24,7 @@ class HeaderNavigationListener
 		$pages = new Button('pages');
 		$pages->setTitle('Pages');
 		$pages->setIcon('file');
-		$pages->setRoute('app.admin');
+		$pages->setRoute('app.admin.page.list');
 		
 		$content->addElement($pages);
 		

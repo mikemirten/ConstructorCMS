@@ -355,3 +355,37 @@
 .adm-header-sm .adm-btn-saucer > .glyphicon {
 	line-height: 40px;
 }
+
+.adm-pane {
+	background: #FFF;
+}
+
+.adm-pane-header {
+	background: #567;
+	
+}
+
+.adm-pane-control {
+	overflow:   hidden;
+	background: #DDE6E6;
+	padding:    10px;
+}
+
+.adm-pane-title {
+	margin:    0;
+	padding:   7px 10px;
+	color:     #D3D6D9;
+	font-size: 16px;
+}
+
+.adm-pane-body {
+	padding: 20px;
+}
+
+.adm-navigation-element {
+	cursor: pointer;
+}
+
+.adm-navigation-element:hover {
+	background: #FFE;
+}

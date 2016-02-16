@@ -1,18 +1,30 @@
+parameters:
+    admin.navigation.class: App\UiBundle\Navigation\Navigation
+    
+    admin.navigation.listener.class: App\AdminBundle\EventListener\HeaderNavigationListener
+    
+    admin.form.page.class: App\AdminBundle\Form\PageType
+
 services:
     admin.navigation.header:
-        class:     App\UiBundle\Navigation\Navigation
+        class:     %admin.navigation.class%
         arguments: [ admin.header ]
         tags:
             - { name: ui.navigation }
             
     admin.navigation.side:
-        class:     App\UiBundle\Navigation\Navigation
+        class:     %admin.navigation.class%
         arguments: [ admin.side ]
         tags:
             - { name: ui.navigation }
             
-    admin.navigation.header.listener:
-        class: App\AdminBundle\EventListener\HeaderNavigationListener
+    admin.navigation.listener:
+        class: %admin.navigation.listener.class%
         tags:
             - { name: kernel.event_listener, event: ui.navigation.admin.header, method: onHeadNavigation }
             - { name: kernel.event_listener, event: ui.navigation.admin.side, method: onSideNavigation }
+            
+    admin.form.page:
+        class: %admin.form.page.class%
+        tags:
+            - { name: form.type, alias: core_page }

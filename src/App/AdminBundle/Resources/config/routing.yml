@@ -1,3 +1,15 @@
 app.admin:
     path:     /admin
     defaults: { _controller: AppAdminBundle:Admin:main }
+
+app.admin.page.list:
+    path:    /admin/pages
+    defaults: { _controller: AppAdminBundle:Page:list }
+    
+app.admin.page:
+    path:    /admin/page/{page}
+    defaults: { _controller: AppAdminBundle:Page:page }
+    
+app.admin.page.add:
+    path:    /admin/page/add
+    defaults: { _controller: AppAdminBundle:Page:add }

@@ -1,0 +1,9 @@
+<h4>{{ page.name }}</h4>
+
+<p>{{ page.description }}</p>
+
+<ul>
+	{% for element in page.elements %}
+		<li>{{ element.title }}</li>
+	{% endfor %}
+</ul>
