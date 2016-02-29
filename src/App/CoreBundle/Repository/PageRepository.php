@@ -17,7 +17,7 @@ class PageRepository extends EntityRepository
 		return $this->createQueryBuilder('page')
 			->leftJoin('page.placements', 'place')
 			->addSelect('place')
-			->join('place.element', 'element')
+			->leftJoin('place.element', 'element')
 			->addSelect('element')
 			->where('page = :id')
 			->setParameter('id', $pageId)
