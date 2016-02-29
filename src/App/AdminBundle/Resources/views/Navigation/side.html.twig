@@ -26,7 +26,7 @@
 							{% if subelement.route is null %}
 								<button class="adm-nav-btn">
 							{% else %}
-								<button class="adm-nav-btn js-adm-nav-btn" data-url="{{ path(subelement.route) }}">
+								<button class="adm-nav-btn js-adm-nav-btn" data-url="{{ path(subelement.route) }}" id="adm_sidenav_btn_{{ subelement.id }}">
 							{% endif %}
 							
 								{% if subelement.icon is not null %}
