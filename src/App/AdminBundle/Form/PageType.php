@@ -27,6 +27,10 @@ class PageType extends AbstractType
 			'label' => 'Name'
 		]);
 		
+		$builder->add('title', 'text', [
+			'label' => 'Title'
+		]);
+		
 		$builder->add('description', 'textarea', [
 			'label' => 'Description'
 		]);

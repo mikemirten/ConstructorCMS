@@ -28,6 +28,13 @@ class Page
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+	
+	/**
+	 * @var string
+	 * 
+	 * @ORM\Column(name="title", type="string", length=1024, nullable=true)
+	 */
+	private $title;
 
     /**
      * @var string
@@ -84,6 +91,30 @@ class Page
     public function getName()
     {
         return $this->name;
+    }
+	
+	/**
+     * Set title
+     *
+     * @param string $name
+     *
+     * @return Page
+     */
+    public function setTitle($name)
+    {
+        $this->title = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
