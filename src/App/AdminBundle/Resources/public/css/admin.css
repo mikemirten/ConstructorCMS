@@ -228,6 +228,11 @@
 	border-radius:  2px;
 }
 
+.adm-btn-micro {
+	background: transparent;
+	color:      #F6F6F6;
+}
+
 .adm-header-sm .adm-btn {
 	font-size:   12px;
 	line-height: 24px;
@@ -362,7 +367,22 @@
 
 .adm-pane-header {
 	background: #567;
-	
+	overflow:   hidden;
+	height:     32px;
+}
+
+.adm-pane-header-control {
+	display:        inline-block;
+	float:          right;
+	line-height:    32px;
+	vertical-align: middle;
+}
+
+.adm-pane-header-control .adm-btn {
+	line-height: 24px;
+	height:      24px;
+	margin:      0 4px;
+	padding:     0 8px;
 }
 
 .adm-pane-control {
@@ -372,14 +392,23 @@
 }
 
 .adm-pane-title {
-	margin:    0;
-	padding:   7px 10px;
-	color:     #D3D6D9;
-	font-size: 16px;
+	margin:         0;
+	padding:        0 10px;
+	color:          #D3D6D9;
+	font-size:      16px;
+	display:        inline-block;
+	line-height:    32px;
+	vertical-align: middle;
 }
 
 .adm-pane-body {
 	padding: 20px;
+}
+
+.adm-pane-footer {
+	overflow:   hidden;
+	background: #DDE6E6;
+	padding:    8px;
 }
 
 .adm-navigation-element {
