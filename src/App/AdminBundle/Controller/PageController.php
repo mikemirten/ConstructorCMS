@@ -3,6 +3,8 @@
 namespace App\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use App\CoreBundle\Entity\Page;
 
@@ -26,13 +28,35 @@ class PageController extends Controller
 		]);
 	}
 	
-	public function addAction()
+	/**
+	 * Add page
+	 * 
+	 * @param  Request $request
+	 * @return JsonResponse
+	 */
+	public function addAction(Request $request)
 	{
 		$form = $this->createForm('core_page', null, [
-			'action' => $this->generateUrl('app.admin.pages.add')
+			'action' => $this->generateUrl('app.admin.page.add')
 		]);
 		
-		return $this->render('AppAdminBundle:Page:add.html.twig', [
+		$form->handleRequest($request);
+		
+		if ($form->isValid()) {
+			$page    = $form->getData();
+			$manager = $this->getDoctrine()->getManager();
+			
+			$manager->persist($page);
+			$manager->flush();
+			
+			if ($request->isXmlHttpRequest()) {
+				return new JsonResponse(['success' => true]);
+			}
+			
+			return $this->redirectToRoute('app.admin.pages');
+		}
+		
+		return $this->render('AppAdminBundle:Page:edit.html.twig', [
 			'form' => $form->createView()
 		]);
 	}

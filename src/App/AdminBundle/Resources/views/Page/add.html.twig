@@ -1,2 +1,49 @@
-{% form_theme form 'AppAdminBundle:Form:add_page.html.twig' %}
-{{ form(form) }}
+{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
+
+{% block pane_title %}Add page{% endblock %}
+
+{% block pane_control_top %}
+	
+{% endblock %}
+
+{% block pane_body %}
+	<div class="row">
+		<div class="col-md-6">
+			{% form_theme form 'AppAdminBundle:Form:add_page.html.twig' %}
+			{{ form(form, {attr: {id: 'adm_page_form'} }) }}
+		</div>
+	</div>
+{% endblock %}
+	
+{% block pane_footer %}
+	<button class="adm-btn adm-btn-primary" id="adm_submit_btn">Add</button>
+{% endblock %}
+
+{% block pane_after %}
+	<script>
+		$(function() {
+			var pageForm = $('#adm_page_form');
+			
+			pageForm.submit(function(event) {
+				event.preventDefault();
+				
+				var form = $(this);
+				
+				$.ajax({
+					url:     form.attr('action'),
+					method:  form.attr('method'),
+					data:    form.serialize(),
+					success: function(response) {
+						if (response.success) {
+							$('#adm_sidenav_btn_pages').click();
+						}
+					}
+				});
+			});
+			
+			$('#adm_submit_btn').click(function() {
+				pageForm.submit();
+			});
+		});
+	</script>
+{% endblock %}
