@@ -1,55 +1,43 @@
-<div class="adm-pane">
-	<div class="adm-pane-header">
-		<h4 class="adm-pane-title">Pages</h4>
-	</div>
+{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
+
+{% block pane_title %}Pages{% endblock %}
+
+{% block pane_control_top %}
+	<button class="adm-btn adm-btn-primary pull-right js-adm-nav-btn" id="adm_page_add" data-url="{{ path('app.admin.page.add') }}">
+		<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add page
+	</button>
+{% endblock %}
 	
-	<div class="adm-pane-control">
-		<button class="adm-btn adm-btn-primary pull-right" id="adm_page_add" data-url="{{ path('app.admin.page.add') }}">
-			<span class="glyphicon glyphicon-plus"></span>
-			Add
-		</button>
-	</div>
-	
-	<div class="adm-pane-body">
-		<div class="row">
-			<div class="col-md-6">
-				<ul class="list-group" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
-					{% for page in pages %}
-					<li class="list-group-item adm-navigation-element js-adm-page-element" data-id="{{ page.id }}">
-						<span class="glyphicon glyphicon-file"></span>
-						{{ page.name }}
-					</li>
-					{% endfor %}
-				</ul>
-			</div>
-				
-			<div class="col-md-6">
-				<div class="panel panel-default" style="display: none;" id="adm_page_panel">
-					<div class="panel-body" id="adm_page_panel_body">
-						
-					</div>
+{% block pane_body %}
+	<div class="row">
+		<div class="col-md-6">
+			<ul class="list-group" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
+				{% for page in pages %}
+				<li class="list-group-item adm-navigation-element js-adm-page-element" data-id="{{ page.id }}">
+					<span class="glyphicon glyphicon-file"></span>
+					{{ page.name }}
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-default" style="display: none;" id="adm_page_panel">
+				<div class="panel-body" id="adm_page_panel_body">
+
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+{% endblock %}
 
+{% block pane_after %}
 <script>
 	$(function() {
 		var pagePanel     = $('#adm_page_panel');
 		var pagePanelBody = pagePanel.find('#adm_page_panel_body');
 		
 		var pageUrl = $('#adm_pages_list').attr('data-url');
-		
-		$('#adm_page_add').click(function() {
-			$.ajax({
-				url: $(this).attr('data-url'),
-				
-				success: function(response) {
-					
-				}
-			});
-		});
 		
 		$('.js-adm-page-element').click(function() {
 			$.ajax({
@@ -63,3 +51,4 @@
 		});
 	});
 </script>
+{% endblock %}
