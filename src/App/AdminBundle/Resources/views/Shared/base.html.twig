@@ -78,15 +78,20 @@
 					button.addClass('active');
 				});
 				
-				$('.js-adm-nav-btn').click(function() {
-					$.ajax({
-						url:     $(this).attr('data-url'),
-						success: function(result) {
-							content.html(result);
-						}
+				var navigationHandler = function() {
+					$('.js-adm-nav-btn').unbind('click').bind('click', function() {
+						$.ajax({
+							url:     $(this).attr('data-url'),
+							success: function(result) {
+								content.html(result);
+								navigationHandler();
+							}
+						});
+
 					});
-					
-				});
+				};
+				
+				navigationHandler();
 			});
 		</script>
     </body>
