@@ -56,7 +56,7 @@ class PageController extends Controller
 			return $this->redirectToRoute('app.admin.pages');
 		}
 		
-		return $this->render('AppAdminBundle:Page:edit.html.twig', [
+		return $this->render('AppAdminBundle:Page:add.html.twig', [
 			'form' => $form->createView()
 		]);
 	}
