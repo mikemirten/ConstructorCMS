@@ -226,6 +226,7 @@
 	background:     #E3E6E9;
 	background:     linear-gradient(0deg, #D3D6D9, #F3F6F9);
 	border-radius:  2px;
+	box-shadow:     0 0 4px rgba(0, 0, 0, 0.15);
 }
 
 .adm-btn-micro {
