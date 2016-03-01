@@ -5,11 +5,16 @@ namespace App\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Page
  *
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="App\CoreBundle\Repository\PageRepository")
+ * 
+ * @UniqueEntity(fields="name")
  */
 class Page
 {
@@ -26,6 +31,10 @@ class Page
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255, unique=true)
+	 * 
+	 * @Assert\NotBlank
+	 * @Assert\Length(min=1, max=255)
+	 * @Assert\Regex(pattern="~^[a-zA-Z0-9_\-]+$~", message="Allowed symbols: letters, digits, underscore, dash")
      */
     private $name;
 	
@@ -33,6 +42,8 @@ class Page
 	 * @var string
 	 * 
 	 * @ORM\Column(name="title", type="string", length=1024, nullable=true)
+	 * 
+	 * @Assert\Length(max=1024)
 	 */
 	private $title;
 
@@ -40,6 +51,8 @@ class Page
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=4096, nullable=true)
+	 * 
+	 * @Assert\Length(max=4096)
      */
     private $description;
 	

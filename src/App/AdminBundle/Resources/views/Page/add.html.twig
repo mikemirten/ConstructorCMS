@@ -3,7 +3,9 @@
 {% block pane_title %}Add page{% endblock %}
 
 {% block pane_control_top %}
-	
+	<button class="adm-btn js-adm-nav-btn" data-url="{{ path('app.admin.page.list') }}">
+		<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back
+	</button>
 {% endblock %}
 
 {% block pane_body %}
@@ -34,9 +36,15 @@
 					method:  form.attr('method'),
 					data:    form.serialize(),
 					success: function(response) {
-						if (response.success) {
+						if (typeof response.success !== 'undefined' && response.success) {
 							$('#adm_sidenav_btn_pages').click();
+							return;
 						}
+						
+						$('#adm_content').html(response);
+					},
+					error: function() {
+						
 					}
 				});
 			});
