@@ -79,19 +79,20 @@
 				});
 				
 				var navigationHandler = function() {
-					$('.js-adm-nav-btn').unbind('click').bind('click', function() {
-						$.ajax({
-							url:     $(this).attr('data-url'),
-							success: function(result) {
-								content.html(result);
-								navigationHandler();
-							}
-						});
-
+					var url = $(this).attr('data-url');
+					
+					$.ajax({
+						url: url,
+						success: function(result) {
+							window.history.pushState({}, null, url);
+							
+							content.html(result);
+							content.find('.js-adm-nav-btn').click(navigationHandler);
+						}
 					});
 				};
 				
-				navigationHandler();
+				$('.js-adm-nav-btn').click(navigationHandler);
 			});
 		</script>
     </body>
