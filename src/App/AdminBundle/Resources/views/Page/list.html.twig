@@ -3,7 +3,11 @@
 {% block pane_title %}Pages{% endblock %}
 
 {% block pane_control_top %}
-	<button class="adm-btn adm-btn-primary pull-right js-adm-nav-btn" id="adm_page_add" data-url="{{ path('app.admin.page.add') }}">
+	<button class="adm-btn adm-btn-success pull-right js-adm-nav-btn" data-url="{{ path('app.admin.page.list') }}">
+		<span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;Refresh
+	</button>
+	
+	<button class="adm-btn adm-btn-primary pull-right js-adm-nav-btn" data-url="{{ path('app.admin.page.add') }}">
 		<span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Add page
 	</button>
 {% endblock %}
