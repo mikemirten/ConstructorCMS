@@ -15,14 +15,35 @@
 {% block pane_body %}
 	<div class="row">
 		<div class="col-md-6">
-			<ul class="list-group" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
-				{% for page in pages %}
-				<li class="list-group-item adm-navigation-element js-adm-page-element" data-id="{{ page.id }}">
-					<span class="glyphicon glyphicon-file"></span>
-					{{ page.name }}
-				</li>
-				{% endfor %}
-			</ul>
+			<table class="table" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					{% for page in pages %}
+					<tr class="adm-navigation-element js-adm-page-element" data-id="{{ page.id }}">
+						<td>{{ page.id }}</td>
+						<td>{{ page.name }}</td>
+						<td>
+							<div class="btn-group pull-right">
+								<button class="btn btn-sm btn-default">
+									<span class="glyphicon glyphicon-eye-open"></span>
+								</button>
+
+								<button class="btn btn-sm btn-default js-adm-nav-btn" data-url="{{ path('app.admin.page.edit', {page: page.id}) }}">
+									<span class="glyphicon glyphicon-pencil"></span>
+								</button>
+							</div>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 
 		<div class="col-md-6">

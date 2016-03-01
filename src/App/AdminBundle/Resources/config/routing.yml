@@ -10,6 +10,10 @@ app.admin.page.add:
     path:    /admin/page/add
     defaults: { _controller: AppAdminBundle:Page:add }
     
+app.admin.page.edit:
+    path:    /admin/page/edit/{page}
+    defaults: { _controller: AppAdminBundle:Page:edit }
+    
 app.admin.page:
     path:    /admin/page/{page}
     defaults: { _controller: AppAdminBundle:Page:page }

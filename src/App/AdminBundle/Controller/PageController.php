@@ -60,4 +60,38 @@ class PageController extends Controller
 			'form' => $form->createView()
 		]);
 	}
+	
+	/**
+	 * Edit page
+	 * 
+	 * @param  Page    $page
+	 * @param  Request $request
+	 * @return JsonResponse
+	 */
+	public function editAction(Page $page, Request $request)
+	{
+		$form = $this->createForm('core_page', $page, [
+			'action' => $this->generateUrl('app.admin.page.edit', ['page' => $page->getId()])
+		]);
+		
+		$form->handleRequest($request);
+		
+		if ($form->isValid()) {
+			$page    = $form->getData();
+			$manager = $this->getDoctrine()->getManager();
+			
+			$manager->persist($page);
+			$manager->flush();
+			
+			if ($request->isXmlHttpRequest()) {
+				return new JsonResponse(['success' => true]);
+			}
+			
+			return $this->redirectToRoute('app.admin.pages');
+		}
+		
+		return $this->render('AppAdminBundle:Page:edit.html.twig', [
+			'form' => $form->createView()
+		]);
+	}
 }
