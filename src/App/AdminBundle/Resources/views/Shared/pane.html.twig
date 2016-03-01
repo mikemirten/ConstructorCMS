@@ -5,23 +5,52 @@
 		<h4 class="adm-pane-title">{% block pane_title %}Pane{% endblock %}</h4>
 		
 		<div class="adm-pane-header-control">
-			<button class="adm-btn adm-btn-micro js-adm-btn-refresh">
-				<span class="glyphicon glyphicon-refresh" title="Refresh"></span>
+			<button class="adm-btn adm-btn-micro js-adm-btn-minify">
+				<span class="glyphicon glyphicon-minus" title="Minify"></span>
 			</button>
 		</div>
 	</div>
 	
-	<div class="adm-pane-control">
-		{% block pane_control_top %}{% endblock %}
-	</div>
-	
-	<div class="adm-pane-body">
-		{% block pane_body %}{% endblock %}
-	</div>
-	
-	<div class="adm-pane-footer">
-		{% block pane_footer %}{% endblock %}
+	<div class="js-adm-min-wrapper">
+		<div class="adm-pane-control">
+			{% block pane_control_top %}{% endblock %}
+		</div>
+
+		<div class="adm-pane-body">
+			{% block pane_body %}{% endblock %}
+		</div>
+
+		<div class="adm-pane-footer">
+			{% block pane_footer %}{% endblock %}
+		</div>
 	</div>
 </div>
 
 {% block pane_after %}{% endblock %}
+
+<script>
+	$(function() {
+		$('.adm-pane').each(function() {
+			var pane = $(this);
+			
+			var button  = pane.find('.js-adm-btn-minify');
+			var wrapper = pane.find('.js-adm-min-wrapper');
+			
+			button.click(function() {
+				var minified = pane.attr('data-minified');
+				
+				console.log(minified);
+				
+				if (typeof minified === 'undefined' || minified === 'false') {
+					pane.attr('data-minified', true);
+					wrapper.stop().slideUp();
+					
+					return;
+				}
+				
+				pane.attr('data-minified', false);
+				wrapper.stop().slideDown();
+			});
+		});
+	});
+</script>
