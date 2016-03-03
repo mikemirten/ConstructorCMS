@@ -419,3 +419,66 @@
 .adm-navigation-element:hover {
 	background: #FFE;
 }
+
+.adm-table {
+	margin:  0;
+	padding: 0;
+	width:   100%;
+}
+
+.adm-table > tbody > tr {
+	background: #F6F8FA;
+}
+
+.adm-table > tbody > tr:nth-child(even) {
+	background: #F0F2F4;
+}
+
+.adm-table > tbody > tr.adm-navigation-element:hover {
+	background: #FFE;
+}
+
+.adm-table > thead > tr {
+	background: #567;
+	color:      #EEE;
+}
+
+.adm-table > thead > tr > th:hover {
+	background: #345;
+}
+
+.adm-table td, .adm-table th {
+	margin:  0;
+	padding: 6px 12px;
+}
+
+.adm-table-col-ctrl {
+	background: #DDE6E6;
+}
+
+.adm-table > tbody > tr:nth-child(even) > .adm-table-col-ctrl {
+	background: #D7E0E0;
+}
+
+.adm-table > tbody > tr.adm-navigation-element:hover > .adm-table-col-ctrl {
+	background: #CCB;
+}
+
+.adm-checkbox {
+	display:        inline-block;
+	background:     #FFF;
+	width:          1.25em;
+	line-height:    1.25;
+	text-align:     center;
+	vertical-align: middle;
+	color:          #DEE;
+	box-shadow:     inset  1px 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.adm-checkbox > .glyphicon {
+	opacity: 0;
+}
+
+.adm-checkbox:hover > .glyphicon {
+	opacity: 1;
+}

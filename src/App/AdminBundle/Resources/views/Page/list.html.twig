@@ -15,9 +15,17 @@
 {% block pane_body %}
 	<div class="row">
 		<div class="col-md-6">
-			<table class="table" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
+			<table class="adm-table" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
+				<colgroup>
+					<col width="1%" />
+					<col width="9%" />
+					<col width="50%" />
+					<col width="40%" />
+				</colgroup>
+				
 				<thead>
 					<tr>
+						<th></th>
 						<th>ID</th>
 						<th>Name</th>
 						<th></th>
@@ -27,6 +35,11 @@
 				<tbody>
 					{% for page in pages %}
 					<tr class="adm-navigation-element js-adm-page-element" data-id="{{ page.id }}">
+						<th class="adm-table-col-ctrl">
+							<div class="adm-checkbox">
+								<span class="glyphicon glyphicon-ok"></span>
+							</div>
+						</th>
 						<td>{{ page.id }}</td>
 						<td>{{ page.name }}</td>
 						<td>
