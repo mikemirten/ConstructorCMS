@@ -5,6 +5,10 @@ app.admin:
 app.admin.page.list:
     path:    /admin/pages
     defaults: { _controller: AppAdminBundle:Page:list }
+    
+app.admin.page.show:
+    path:    /admin/page/show/{page}
+    defaults: { _controller: AppAdminBundle:Page:show }
 
 app.admin.page.add:
     path:    /admin/page/add

@@ -229,6 +229,10 @@
 	box-shadow:     0 0 4px rgba(0, 0, 0, 0.15);
 }
 
+a.adm-btn {
+	text-decoration: none;
+}
+
 .adm-btn-micro {
 	background: transparent;
 	color:      #F6F6F6;
@@ -481,4 +485,9 @@
 
 .adm-checkbox:hover > .glyphicon {
 	opacity: 1;
+}
+
+.adm-page-frame {
+	width:  100%;
+	height: 800px;
 }

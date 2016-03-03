@@ -10,6 +10,11 @@ use App\CoreBundle\Entity\Page;
 
 class PageController extends Controller
 {
+	/**
+	 * List of pages
+	 * 
+	 * @return Response
+	 */
     public function listAction()
     {
 		$pages = $this->getDoctrine()
@@ -20,6 +25,19 @@ class PageController extends Controller
 			'pages' => $pages
 		]);
     }
+	
+	/**
+	 * Show page
+	 * 
+	 * @param  Page $page
+	 * @return Response
+	 */
+	public function showAction(Page $page)
+	{
+		return $this->render('AppAdminBundle:Page:show.html.twig', [
+			'page' => $page
+		]);
+	}
 	
 	public function pageAction(Page $page)
 	{
