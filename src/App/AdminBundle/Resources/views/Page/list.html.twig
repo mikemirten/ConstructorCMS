@@ -15,7 +15,7 @@
 {% block pane_body %}
 	<div class="row">
 		<div class="col-md-6">
-			<table class="adm-table" data-url="{{ path('app.admin.page', {page: 'pageId'}) }}" id="adm_pages_list">
+			<table class="adm-table">
 				<colgroup>
 					<col width="1%" />
 					<col width="9%" />
@@ -34,9 +34,9 @@
 				
 				<tbody>
 					{% for page in pages %}
-					<tr class="adm-navigation-element js-adm-page-element" data-id="{{ page.id }}">
+					<tr class="adm-navigation-element js-adm-nav-btn" data-url="{{ path('app.admin.page', {page: page.id}) }}" data-target="adm_page_panel">
 						<th class="adm-table-col-ctrl">
-							<div class="adm-checkbox">
+							<div class="adm-checkbox js-adm-checkbox">
 								<span class="glyphicon glyphicon-ok"></span>
 							</div>
 						</th>
@@ -59,34 +59,8 @@
 			</table>
 		</div>
 
-		<div class="col-md-6">
-			<div class="panel panel-default" style="display: none;" id="adm_page_panel">
-				<div class="panel-body" id="adm_page_panel_body">
-
-				</div>
-			</div>
+		<div class="col-md-6" id="adm_page_panel">
+			
 		</div>
 	</div>
-{% endblock %}
-
-{% block pane_after %}
-<script>
-	$(function() {
-		var pagePanel     = $('#adm_page_panel');
-		var pagePanelBody = pagePanel.find('#adm_page_panel_body');
-		
-		var pageUrl = $('#adm_pages_list').attr('data-url');
-		
-		$('.js-adm-page-element').click(function() {
-			$.ajax({
-				url: pageUrl.replace('pageId', $(this).attr('data-id')),
-				
-				success: function(response) {
-					pagePanelBody.html(response);
-					pagePanel.show();
-				}
-			});
-		});
-	});
-</script>
 {% endblock %}

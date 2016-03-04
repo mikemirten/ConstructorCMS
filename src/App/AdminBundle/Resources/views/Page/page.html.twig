@@ -1,9 +1,13 @@
-<h4>{{ page.name }}</h4>
+{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
 
-<p>{{ page.description }}</p>
+{% block pane_title %}{{ page.name }}{% endblock %}
+
+{% block pane_body %}
+	<p>{{ page.description }}</p>
 
 <ul>
 	{% for element in page.elements %}
 		<li>{{ element.title }}</li>
 	{% endfor %}
 </ul>
+{% endblock %}
