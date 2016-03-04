@@ -1,17 +1,18 @@
 {% block pane_before %}{% endblock %}
+{% set paneId = random(9999999999999999) %}
 
 <div class="adm-pane">
 	<div class="adm-pane-header">
 		<h4 class="adm-pane-title">{% block pane_title %}Pane{% endblock %}</h4>
 		
 		<div class="adm-pane-header-control">
-			<button class="adm-btn adm-btn-micro js-adm-btn-minify">
+			<button class="adm-btn adm-btn-micro js-adm-btn-minify" data-target="adm_min_wrapper_{{ paneId }}">
 				<span class="glyphicon glyphicon-minus" title="Minify"></span>
 			</button>
 		</div>
 	</div>
 	
-	<div class="js-adm-min-wrapper">
+	<div id="adm_min_wrapper_{{ paneId }}">
 		<div class="adm-pane-control">
 			{% block pane_control_top %}{% endblock %}
 		</div>
@@ -27,30 +28,3 @@
 </div>
 
 {% block pane_after %}{% endblock %}
-
-<script>
-	$(function() {
-		$('.adm-pane').each(function() {
-			var pane = $(this);
-			
-			var button  = pane.find('.js-adm-btn-minify');
-			var wrapper = pane.find('.js-adm-min-wrapper');
-			
-			button.click(function() {
-				var minified = pane.attr('data-minified');
-				
-				console.log(minified);
-				
-				if (typeof minified === 'undefined' || minified === 'false') {
-					pane.attr('data-minified', true);
-					wrapper.stop().slideUp();
-					
-					return;
-				}
-				
-				pane.attr('data-minified', false);
-				wrapper.stop().slideDown();
-			});
-		});
-	});
-</script>

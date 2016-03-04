@@ -78,21 +78,79 @@
 					button.addClass('active');
 				});
 				
-				var navigationHandler = function() {
-					var url = $(this).attr('data-url');
+				var minifyHandler = function() {
+					var wrapper = $('#' + $(this).attr('data-target'));
+					
+					if (wrapper.hasClass('js-minified')) {
+						wrapper.removeClass('js-minified');
+						wrapper.stop().slideDown();
+						
+						return;
+					}
+
+					wrapper.addClass('js-minified');
+					wrapper.stop().slideUp();
+				}
+				
+				var checkboxHandler = function(event) {
+					console.log(this);
+					
+					event.stopPropagation();
+
+					var checkbox = $(this);
+
+					if (checkbox.hasClass('active')) {
+						checkbox.removeClass('active');
+						return;
+					}
+					
+					checkbox.addClass('active');
+				}
+				
+				var navigationHandler = function(event) {
+					event.stopPropagation();
+					
+					var button = $(this);
+					var url    = button.attr('data-url');
 					
 					$.ajax({
 						url: url,
 						success: function(result) {
+							if (button.is('[data-target]')) {
+								var target = $('#' + button.attr('data-target'));
+								
+								target.html(result);
+								applyHandlers(target);
+								
+								return;
+							}
+							
 							window.history.pushState({}, null, url);
 							
 							content.html(result);
-							content.find('.js-adm-nav-btn').click(navigationHandler);
+							applyHandlers(content);
+						},
+						error: function() {
+							if (button.is('[data-target]')) {
+								var target = $('#' + button.attr('data-target'));
+								
+								target.html('<div class="alert alert-danger">Error occurred...</div>');
+								
+								return;
+							}
+							
+							content.html('<div class="alert alert-danger">Error occurred...</div>');
 						}
 					});
 				};
 				
-				$('.js-adm-nav-btn').click(navigationHandler);
+				var applyHandlers = function(context) {
+					context.find('.js-adm-nav-btn').click(navigationHandler);
+					context.find('.js-adm-checkbox').click(checkboxHandler);
+					context.find('.js-adm-btn-minify').click(minifyHandler);
+				};
+				
+				applyHandlers($('.adm-body'));
 			});
 		</script>
     </body>
