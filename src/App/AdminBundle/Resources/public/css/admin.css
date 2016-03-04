@@ -434,7 +434,7 @@ a.adm-btn {
 	background: #F6F8FA;
 }
 
-.adm-table > tbody > tr:nth-child(even) {
+.adm-table > tbody > tr:nth-child(odd) {
 	background: #F0F2F4;
 }
 
@@ -447,8 +447,9 @@ a.adm-btn {
 	color:      #EEE;
 }
 
-.adm-table > thead > tr > th:hover {
-	background: #345;
+.adm-table > thead > .adm-table-ctrl-row {
+	background:    #DDE6E6;
+	border-bottom: 1px solid #BBC6C6;
 }
 
 .adm-table td, .adm-table th {
@@ -460,7 +461,7 @@ a.adm-btn {
 	background: #DDE6E6;
 }
 
-.adm-table > tbody > tr:nth-child(even) > .adm-table-col-ctrl {
+.adm-table > tbody > tr:nth-child(odd) > .adm-table-col-ctrl {
 	background: #D7E0E0;
 }
 
