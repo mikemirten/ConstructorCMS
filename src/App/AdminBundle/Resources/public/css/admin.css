@@ -43,7 +43,7 @@
 }
 
 .adm-header-logo-rotate > .glyphicon {
-	animation: rotate 1s linear infinite;
+	animation: rotate 2s linear infinite;
 }
 
 @keyframes rotate {
@@ -475,16 +475,12 @@ a.adm-btn {
 	line-height:    1.25;
 	text-align:     center;
 	vertical-align: middle;
-	color:          #DEE;
+	color:          #F6F6F6;
 	box-shadow:     inset  1px 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-.adm-checkbox > .glyphicon {
-	opacity: 0;
-}
-
-.adm-checkbox:hover > .glyphicon {
-	opacity: 1;
+.adm-checkbox.active {
+	color: #E66;
 }
 
 .adm-page-frame {
