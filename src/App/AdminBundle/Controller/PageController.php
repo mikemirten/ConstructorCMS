@@ -15,34 +15,38 @@ class PageController extends Controller
 	 * 
 	 * @return Response
 	 */
-    public function listAction()
+    public function listAction(Request $request)
     {
 		$pages = $this->getDoctrine()
 			->getRepository('AppCoreBundle:Page')
 			->findAll();
 		
         return $this->render('AppAdminBundle:Page:list.html.twig', [
-			'pages' => $pages
+			'pages'  => $pages,
+			'isAjax' => $request->isXmlHttpRequest()
 		]);
     }
 	
 	/**
 	 * Show page
 	 * 
-	 * @param  Page $page
+	 * @param  Request $request
+	 * @param  Page    $page
 	 * @return Response
 	 */
-	public function showAction(Page $page)
+	public function showAction(Request $request, Page $page)
 	{
 		return $this->render('AppAdminBundle:Page:show.html.twig', [
-			'page' => $page
+			'page'   => $page,
+			'isAjax' => $request->isXmlHttpRequest()
 		]);
 	}
 	
-	public function pageAction(Page $page)
+	public function pageAction(Request $request, Page $page)
 	{
 		return $this->render('AppAdminBundle:Page:page.html.twig', [
-			'page' => $page
+			'page'   => $page,
+			'isAjax' => $request->isXmlHttpRequest()
 		]);
 	}
 	
@@ -75,18 +79,19 @@ class PageController extends Controller
 		}
 		
 		return $this->render('AppAdminBundle:Page:add.html.twig', [
-			'form' => $form->createView()
+			'form'   => $form->createView(),
+			'isAjax' => $request->isXmlHttpRequest()
 		]);
 	}
 	
 	/**
 	 * Edit page
 	 * 
-	 * @param  Page    $page
 	 * @param  Request $request
+	 * @param  Page    $page
 	 * @return JsonResponse
 	 */
-	public function editAction(Page $page, Request $request)
+	public function editAction(Request $request, Page $page)
 	{
 		$form = $this->createForm('core_page', $page, [
 			'action' => $this->generateUrl('app.admin.page.edit', ['page' => $page->getId()])
@@ -109,7 +114,8 @@ class PageController extends Controller
 		}
 		
 		return $this->render('AppAdminBundle:Page:edit.html.twig', [
-			'form' => $form->createView()
+			'form'   => $form->createView(),
+			'isAjax' => $request->isXmlHttpRequest()
 		]);
 	}
 }

@@ -1,36 +1,21 @@
-{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
+{% extends isAjax ? 'AppAdminBundle:Shared:ajax.html.twig' : 'AppAdminBundle:Shared:base.html.twig' %}
 
-{% block pane_title %}Add page{% endblock %}
-
-{% block pane_control_top %}
-	<button class="adm-btn js-adm-nav-btn" data-url="{{ path('app.admin.page.list') }}">
-		<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back
-	</button>
+{% block content %}
+	{% include 'AppAdminBundle:Page:pane/add.html.twig' %}
 {% endblock %}
 
-{% block pane_body %}
-	<div class="row">
-		<div class="col-md-6">
-			{% form_theme form 'AppAdminBundle:Form:add_page.html.twig' %}
-			{{ form(form, {attr: {id: 'adm_page_form'} }) }}
-		</div>
-	</div>
-{% endblock %}
+{% block javascripts %}
+	{{ parent() }}
 	
-{% block pane_footer %}
-	<button class="adm-btn adm-btn-primary" id="adm_submit_btn">Add</button>
-{% endblock %}
-
-{% block pane_after %}
 	<script>
 		$(function() {
 			var pageForm = $('#adm_page_form');
-			
+
 			pageForm.submit(function(event) {
 				event.preventDefault();
-				
+
 				var form = $(this);
-				
+
 				$.ajax({
 					url:     form.attr('action'),
 					method:  form.attr('method'),
@@ -40,15 +25,15 @@
 							$('#adm_sidenav_btn_pages').click();
 							return;
 						}
-						
+
 						$('#adm_content').html(response);
 					},
 					error: function() {
-						
+
 					}
 				});
 			});
-			
+
 			$('#adm_submit_btn').click(function() {
 				pageForm.submit();
 			});

@@ -31,18 +31,16 @@
 					</nav>
 				</header>
 			{% endblock %}
+			
+			<div class="adm-main">
+				<aside class="adm-left-nav">
+					{{ navigation('admin.side', 'App\AdminBundle:Navigation:side.html.twig') }}
+				</aside>
 
-			{% block body %}
-				<div class="adm-main">
-					<aside class="adm-left-nav">
-						{{ navigation('admin.side', 'App\AdminBundle:Navigation:side.html.twig') }}
-					</aside>
-
-					<section id="adm_content" class="adm-content">
-
-					</section>
-				</div>
-			{% endblock %}
+				<section id="adm_content" class="adm-content">
+					{% block content %}{% endblock %}
+				</section>
+			</div>
 
 			{% block footer %}
 				<footer class="adm-footer">

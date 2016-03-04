@@ -1,30 +1,10 @@
-{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
+{% extends isAjax ? 'AppAdminBundle:Shared:ajax.html.twig' : 'AppAdminBundle:Shared:base.html.twig' %}
 
-{% block pane_title %}Show page{% endblock %}
-
-{% block pane_control_top %}
-	<button class="adm-btn js-adm-nav-btn" data-url="{{ path('app.admin.page.list') }}">
-		<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back
-	</button>
-	
-	<a class="adm-btn" href="{{ path('core_page', {pageId: page.id}) }}">
-		<span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;Live
-	</a>
-	
-	<button class="adm-btn adm-btn-success pull-right" id="adm_page_frame_reload">
-		<span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;Refresh
-	</button>
+{% block content %}
+	{% include 'AppAdminBundle:Page:pane/show.html.twig' %}
 {% endblock %}
 
-{% block pane_body %}
-	<iframe class="adm-page-frame" src="{{ path('core_page', {pageId: page.id}) }}" id="adm_page_frame"></iframe>
-{% endblock %}
-	
-{% block pane_footer %}
-	
-{% endblock %}
-
-{% block pane_after %}
+{% block javascripts %}
 	<script>
 		$(function() {
 			var frame = document.getElementById('adm_page_frame');

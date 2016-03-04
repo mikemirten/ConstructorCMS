@@ -1,0 +1,22 @@
+{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
+
+{% block pane_title %}Add page{% endblock %}
+
+{% block pane_control_top %}
+	<button class="adm-btn js-adm-nav-btn" data-url="{{ path('app.admin.page.list') }}">
+		<span class="glyphicon glyphicon-arrow-left"></span>&nbsp;&nbsp;Back
+	</button>
+{% endblock %}
+
+{% block pane_body %}
+	<div class="row">
+		<div class="col-md-6">
+			{% form_theme form 'AppAdminBundle:Form:add_page.html.twig' %}
+			{{ form(form, {attr: {id: 'adm_page_form'} }) }}
+		</div>
+	</div>
+{% endblock %}
+	
+{% block pane_footer %}
+	<button class="adm-btn adm-btn-primary" id="adm_submit_btn">Add</button>
+{% endblock %}

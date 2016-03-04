@@ -1,25 +1,5 @@
-{% extends 'AppAdminBundle:Shared:pane.html.twig' %}
+{% extends isAjax ? 'AppAdminBundle:Shared:ajax.html.twig' : 'AppAdminBundle:Shared:base.html.twig' %}
 
-{% block pane_title %}{{ page.name }}{% endblock %}
-
-{% block pane_control_top %}
-	<div class="input-group input-group-sm">
-		<input class="form-control" type="text" value="{{ path('core_page', {pageId: page.id}) }}" disabled />
-
-		<span class="input-group-btn">
-			<button class="btn btn-default" type="button">
-				<span class="glyphicon glyphicon-copy"></span>
-			</button>
-		</span>
-	</div>
-{% endblock %}
-
-{% block pane_body %}
-	<p>{{ page.description }}</p>
-
-	<ul>
-		{% for element in page.elements %}
-			<li>{{ element.title }}</li>
-		{% endfor %}
-	</ul>
+{% block content %}
+	{% include 'AppAdminBundle:Page:pane/page.html.twig' %}
 {% endblock %}

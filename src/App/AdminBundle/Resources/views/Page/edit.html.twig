@@ -1,9 +1,5 @@
 {% extends 'AppAdminBundle:Page:add.html.twig' %}
 
-{% block pane_title %}Edit page{% endblock %}
-	
-{% block pane_footer %}
-	<button class="adm-btn adm-btn-primary" id="adm_submit_btn">Save</button>
-	
-	<button class="adm-btn adm-btn-danger pull-right">Delete</button>
+{% block content %}
+	{% include 'AppAdminBundle:Page:pane/edit.html.twig' %}
 {% endblock %}
