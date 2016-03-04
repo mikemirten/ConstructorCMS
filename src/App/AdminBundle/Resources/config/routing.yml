@@ -1,23 +1,23 @@
 app.admin:
-    path:     /admin
+    path:     /
     defaults: { _controller: AppAdminBundle:Admin:main }
 
 app.admin.page.list:
-    path:    /admin/pages
+    path:    /pages
     defaults: { _controller: AppAdminBundle:Page:list }
     
 app.admin.page.show:
-    path:    /admin/page/show/{page}
+    path:    /page/show/{page}
     defaults: { _controller: AppAdminBundle:Page:show }
 
 app.admin.page.add:
-    path:    /admin/page/add
+    path:    /page/add
     defaults: { _controller: AppAdminBundle:Page:add }
     
 app.admin.page.edit:
-    path:    /admin/page/edit/{page}
+    path:    /page/edit/{page}
     defaults: { _controller: AppAdminBundle:Page:edit }
     
 app.admin.page:
-    path:    /admin/page/{page}
+    path:    /page/{page}
     defaults: { _controller: AppAdminBundle:Page:page }
