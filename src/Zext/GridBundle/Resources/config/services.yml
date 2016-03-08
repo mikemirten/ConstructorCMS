@@ -1,0 +1,4 @@
+services:
+#    zext_grid.example:
+#        class: Zext\GridBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

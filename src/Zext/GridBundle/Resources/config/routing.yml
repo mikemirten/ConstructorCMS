@@ -1,0 +1,3 @@
+zext.grid:
+    path:     /grid
+    defaults: { _controller: ZextGridBundle:Grid:Grid }

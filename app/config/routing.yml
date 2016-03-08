@@ -1,3 +1,7 @@
+zext_grid:
+    resource: "@ZextGridBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app_ui:
     resource: "@AppUiBundle/Resources/config/routing.yml"
     prefix:   /

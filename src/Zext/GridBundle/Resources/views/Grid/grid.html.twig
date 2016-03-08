@@ -1,0 +1,55 @@
+<div class="zgrid-pane">
+	<div class="zgrid-body">
+		<table class="zgrid-table">
+			{% block table_colgroup %}
+			<colgroup>
+				{% for col in grid.columns %}
+				<col width="{{ col.width }}%" />
+				{% endfor %}
+			</colgroup>
+			{% endblock %}
+
+			{% block table_head %}
+				{% if grid.hasHead() %}
+				<thead class="zgrid-table-head">
+					{% for row in grid.head %}
+					<tr class="zgrid-row zgrid-head-row">
+						{% for cell in row %}
+						<th class="zgrid-cell zgrid-head-cell">{{ cell.content }}</th>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</thead>
+				{% endif %}
+			{% endblock %}
+
+			{% block table_body %}
+				{% if grid.hasBody() %}
+				<tbody class="zgrid-table-body">
+					{% for row in grid.body %}
+					<tr class="zgrid-row zgrid-body-row">
+						{% for cell in row %}
+						<td class="zgrid-cell zgrid-body-cell">{{ cell.content }}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</tbody>
+				{% endif %}
+			{% endblock %}
+			
+			{% block table_foot %}
+				{% if grid.hasBody() %}
+				<tfoot class="zgrid-table-foot">
+					{% for row in grid.foot %}
+					<tr class="zgrid-row zgrid-foot-row">
+						{% for cell in row %}
+						<td class="zgrid-cell zgrid-foot-cell">{{ cell.content }}</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</tfoot>
+				{% endif %}
+			{% endblock %}
+		</table>
+	</div>
+</div>
