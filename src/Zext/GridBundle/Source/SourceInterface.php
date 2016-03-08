@@ -2,15 +2,10 @@
 
 namespace Zext\GridBundle\Source;
 
-interface SourceInterface
-{
-	/**
-	 * Get columns
-	 * 
-	 * @return \Zext\GridBundle\Grid\Column[]
-	 */
-	public function getSchema();
-	
+use Zext\GridBundle\SchemaProvider\SchemaProviderInterface;
+
+interface SourceInterface extends SchemaProviderInterface
+{	
 	/**
 	 * Get rows with data
 	 * 

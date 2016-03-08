@@ -5,6 +5,13 @@ namespace Zext\GridBundle\Grid;
 class Column
 {
 	/**
+	 * Name
+	 *
+	 * @var string
+	 */
+	private $name;
+	
+	/**
 	 * Title
 	 *
 	 * @var string
@@ -21,11 +28,31 @@ class Column
 	/**
 	 * Constructor
 	 * 
-	 * @param string $title
+	 * @param string $name
 	 */
-	public function __construct($title = null)
+	public function __construct($name)
 	{
-		$this->title = $title;
+		$this->name = $name;
+	}
+	
+	/**
+	 * Get name
+	 * 
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+	
+	/**
+	 * Set title
+	 * 
+	 * @param type $title
+	 */
+	public function setTitle($title)
+	{
+		return $this->title = $title;
 	}
 	
 	/**
@@ -35,6 +62,10 @@ class Column
 	 */
 	public function getTitle()
 	{
+		if ($this->title === null) {
+			return ucfirst($this->name);
+		}
+		
 		return $this->title;
 	}
 	
