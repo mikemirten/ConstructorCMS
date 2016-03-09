@@ -42,11 +42,32 @@ class Grid
 	private $columns;
 	
 	/**
-	 * Is grid initialized ?
+	 * Is head initialized ?
 	 *
 	 * @var bool
 	 */
-	private $initialized = false;
+	private $initializedHead = false;
+	
+	/**
+	 * Is body initialized ?
+	 *
+	 * @var bool
+	 */
+	private $initializedBody = false;
+	
+	/**
+	 * Is foot initialized ?
+	 *
+	 * @var bool
+	 */
+	private $initializedFoot = false;
+	
+	/**
+	 * Is columns initialized ?
+	 *
+	 * @var bool
+	 */
+	private $initializedColumns = false;
 	
 	/**
 	 * Constructor
@@ -71,7 +92,7 @@ class Grid
 	 */
 	public function hasHead()
 	{
-		$this->initialize();
+		$this->initializeHead();
 		
 		return ! $this->head->isEmpty();
 	}
@@ -83,7 +104,7 @@ class Grid
 	 */
 	public function getHead()
 	{
-		$this->initialize();
+		$this->initializeHead();
 		
 		return $this->head;
 	}
@@ -95,7 +116,7 @@ class Grid
 	 */
 	public function hasBody()
 	{
-		$this->initialize();
+		$this->initializeBody();
 		
 		return ! $this->body->isEmpty();
 	}
@@ -107,7 +128,7 @@ class Grid
 	 */
 	public function getBody()
 	{
-		$this->initialize();
+		$this->initializeBody();
 		
 		return $this->body;
 	}
@@ -119,7 +140,7 @@ class Grid
 	 */
 	public function hasFoot()
 	{
-		$this->initialize();
+		$this->initializeFoot();
 		
 		return ! $this->foot->isEmpty();
 	}
@@ -131,7 +152,7 @@ class Grid
 	 */
 	public function getFoot()
 	{
-		$this->initialize();
+		$this->initializeFoot();
 		
 		return $this->foot;
 	}
@@ -143,17 +164,67 @@ class Grid
 	 */
 	public function getColumns()
 	{
-		$this->initialize();
+		$this->initializeColumns();
 		
 		return $this->columns;
 	}
 	
 	/**
-	 * Initialize grid
+	 * Initialize head
 	 */
-	protected function initialize()
+	protected function initializeHead()
 	{
-		if ($this->initialized === true) {
+		if ($this->initializedHead === true) {
+			return;
+		}
+		
+		$row = new Row();
+		
+		foreach ($this->source->getSchema() as $column) {
+			$cell = new Cell($column->getTitle());
+			
+			$row->appendCell($cell);
+		}
+		
+		$this->head->appendRow($row);
+		
+		$this->initializedHead = true;
+	}
+	
+	/**
+	 * Initialize body
+	 */
+	protected function initializeBody()
+	{
+		if ($this->initializedBody === true) {
+			return;
+		}
+		
+		foreach ($this->source->getData() as $row) {
+			$this->body->appendRow($row);
+		}
+		
+		$this->initializedBody = true;
+	}
+	
+	/**
+	 * Initialize foot
+	 */
+	protected function initializeFoot()
+	{
+		if ($this->initializedFoot === true) {
+			return;
+		}
+		
+		$this->initializedFoot = true;
+	}
+	
+	/**
+	 * Initialize columns
+	 */
+	protected function initializeColumns()
+	{
+		if ($this->initializedColumns === true) {
 			return;
 		}
 		
@@ -161,10 +232,6 @@ class Grid
 			$this->columns->push($column);
 		}
 		
-		foreach ($this->source->getData() as $row) {
-			$this->body->appendRow($row);
-		}
-		
-		$this->initialized = true;
+		$this->initializedColumns = true;
 	}
 }
