@@ -47,7 +47,7 @@ class RepositorySource implements SourceInterface
      */
 	public function getData()
 	{
-		$result = $this->repository->findAll();
+		$result = $this->repository->findBy([], $this->resolveOrder());
 		$data   = [];
 		
 		foreach ($result as $item) {
@@ -63,5 +63,27 @@ class RepositorySource implements SourceInterface
 	public function getSchema()
 	{
 		return $this->schemaProvider->getSchema();
+	}
+	
+	/**
+	 * Resolve order
+	 * 
+	 * @return array
+	 */
+	protected function resolveOrder()
+	{
+		$orderSet = [];
+		
+		foreach ($this->schemaProvider->getSchema() as $column) {
+			$order = $column->getOrder();
+			
+			if ($order === null) {
+				continue;
+			}
+			
+			$orderSet[$column->getName()] = $order;
+		}
+		
+		return $orderSet;
 	}
 }

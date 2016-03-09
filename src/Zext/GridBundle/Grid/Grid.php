@@ -14,25 +14,11 @@ class Grid
 	private $source;
 	
 	/**
-	 * Head table
+	 * Rows
 	 *
-	 * @var Table
+	 * @var Row[]
 	 */
-	private $head;
-	
-	/**
-	 * Body table
-	 *
-	 * @var Table
-	 */
-	private $body;
-	
-	/**
-	 * Foot table
-	 *
-	 * @var Table
-	 */
-	private $foot;
+	private $rows;
 	
 	/**
 	 * Columns
@@ -42,34 +28,6 @@ class Grid
 	private $columns;
 	
 	/**
-	 * Is head initialized ?
-	 *
-	 * @var bool
-	 */
-	private $initializedHead = false;
-	
-	/**
-	 * Is body initialized ?
-	 *
-	 * @var bool
-	 */
-	private $initializedBody = false;
-	
-	/**
-	 * Is foot initialized ?
-	 *
-	 * @var bool
-	 */
-	private $initializedFoot = false;
-	
-	/**
-	 * Is columns initialized ?
-	 *
-	 * @var bool
-	 */
-	private $initializedColumns = false;
-	
-	/**
 	 * Constructor
 	 * 
 	 * @param SourceInterface $source
@@ -77,84 +35,20 @@ class Grid
 	public function __construct(SourceInterface $source = null)
 	{
 		$this->source = $source;
-		
-		$this->head = new Table();
-		$this->body = new Table();
-		$this->foot = new Table();
-		
-		$this->columns = new \SplDoublyLinkedList();
 	}
 	
 	/**
-	 * Has head table ?
+	 * Get rows
 	 * 
-	 * @return bool
+	 * @return Rows[]
 	 */
-	public function hasHead()
+	public function getRows()
 	{
-		$this->initializeHead();
+		if ($this->rows === null) {
+			$this->rows = $this->source->getData();
+		}
 		
-		return ! $this->head->isEmpty();
-	}
-	
-	/**
-	 * Get head table
-	 * 
-	 * @return Table
-	 */
-	public function getHead()
-	{
-		$this->initializeHead();
-		
-		return $this->head;
-	}
-	
-	/**
-	 * Has body table ?
-	 * 
-	 * @return bool
-	 */
-	public function hasBody()
-	{
-		$this->initializeBody();
-		
-		return ! $this->body->isEmpty();
-	}
-	
-	/**
-	 * Get body table
-	 * 
-	 * @return Table
-	 */
-	public function getBody()
-	{
-		$this->initializeBody();
-		
-		return $this->body;
-	}
-	
-	/**
-	 * Has foot table ?
-	 * 
-	 * @return bool
-	 */
-	public function hasFoot()
-	{
-		$this->initializeFoot();
-		
-		return ! $this->foot->isEmpty();
-	}
-	
-	/**
-	 * Get foot table
-	 * 
-	 * @return Table
-	 */
-	public function getFoot()
-	{
-		$this->initializeFoot();
-		
-		return $this->foot;
+		return $this->rows;
 	}
 	
 	/**
@@ -164,74 +58,38 @@ class Grid
 	 */
 	public function getColumns()
 	{
-		$this->initializeColumns();
+		if ($this->columns === null) {
+			$this->columns = $this->source->getSchema();
+		}
 		
 		return $this->columns;
 	}
 	
 	/**
-	 * Initialize head
+	 * Set order by
+	 * 
+	 * @param  string $orderSrc
+	 * @throws \LogicException
 	 */
-	protected function initializeHead()
-	{
-		if ($this->initializedHead === true) {
-			return;
-		}
-		
-		$row = new Row();
-		
-		foreach ($this->source->getSchema() as $column) {
-			$cell = new Cell($column->getTitle());
+	public function orderBy($orderSrc)
+	{	
+		foreach (explode(',', $orderSrc) as $orderDef) {
+			list ($column, $order) = explode(':', $orderDef);
 			
-			$row->appendCell($cell);
+			$column = trim($column);
+			$order  = trim(strtolower($order));
+			
+			$columns = $this->getColumns();
+			
+			if (! isset($columns[$column])) {
+				throw new \LogicException(sprintf('Column "%s" not found', $column));
+			}
+			
+			if (! $columns[$column]->isOrderable()) {
+				throw new \LogicException(sprintf('Column "%s" is not sortable', $column));
+			}
+			
+			$columns[$column]->setOrder($order);
 		}
-		
-		$this->head->appendRow($row);
-		
-		$this->initializedHead = true;
-	}
-	
-	/**
-	 * Initialize body
-	 */
-	protected function initializeBody()
-	{
-		if ($this->initializedBody === true) {
-			return;
-		}
-		
-		foreach ($this->source->getData() as $row) {
-			$this->body->appendRow($row);
-		}
-		
-		$this->initializedBody = true;
-	}
-	
-	/**
-	 * Initialize foot
-	 */
-	protected function initializeFoot()
-	{
-		if ($this->initializedFoot === true) {
-			return;
-		}
-		
-		$this->initializedFoot = true;
-	}
-	
-	/**
-	 * Initialize columns
-	 */
-	protected function initializeColumns()
-	{
-		if ($this->initializedColumns === true) {
-			return;
-		}
-		
-		foreach ($this->source->getSchema() as $column) {
-			$this->columns->push($column);
-		}
-		
-		$this->initializedColumns = true;
 	}
 }

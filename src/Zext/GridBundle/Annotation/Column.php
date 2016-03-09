@@ -29,4 +29,11 @@ class Column
 	 * @var string
 	 */
 	public $property;
+	
+	/**
+	 * Orderable by the column
+	 *
+	 * @var boolean
+	 */
+	public $orderable = false;
 }

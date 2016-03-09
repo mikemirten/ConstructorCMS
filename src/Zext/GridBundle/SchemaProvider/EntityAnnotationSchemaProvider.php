@@ -128,11 +128,11 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 			}
 			
 			if (isset($columnsAnnotations[$name])) {
-				$columns[] = $this->createColumnUsingAnnotation($name, $columnsAnnotations[$name]);
+				$columns[$name] = $this->createColumnUsingAnnotation($name, $columnsAnnotations[$name]);
 				continue;
 			}
 			
-			$columns[] = new Column($name);
+			$columns[$name] = new Column($name);
 		}
 		
 		return $columns;
@@ -151,6 +151,7 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 		$column->setTitle($annotation->title);
 		$column->setWidth($annotation->width);
 		$column->setProperty($annotation->property);
+		$column->setOrderable($annotation->orderable);
 		
 		return $column;
 	}

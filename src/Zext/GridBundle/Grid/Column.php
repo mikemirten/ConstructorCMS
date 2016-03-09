@@ -4,6 +4,9 @@ namespace Zext\GridBundle\Grid;
 
 class Column
 {
+	const ORDER_ASC  = 'asc';
+	const ORDER_DESC = 'desc';
+	
 	/**
 	 * Name
 	 *
@@ -31,6 +34,20 @@ class Column
 	 * @var string
 	 */
 	private $property;
+	
+	/**
+	 * Orderable by the column
+	 *
+	 * @var bool 
+	 */
+	private $orderable = false;
+	
+	/**
+	 * Order ("asc" | "desc")
+	 *
+	 * @var string
+	 */
+	private $order;
 	
 	/**
 	 * Constructor
@@ -114,5 +131,50 @@ class Column
 	public function getProperty()
 	{
 		return $this->property;
+	}
+	
+	/**
+	 * Set orderable
+	 * 
+	 * @param bool $orderable
+	 */
+	public function setOrderable($orderable = true)
+	{
+		$this->orderable = $orderable;
+	}
+	
+	/**
+	 * Is orderable ?
+	 * 
+	 * @return bool
+	 */
+	public function isOrderable()
+	{
+		return $this->orderable;
+	}
+	
+	/**
+	 * Set order
+	 * 
+	 * @param string $order
+	 */
+	public function setOrder($order)
+	{
+		if ($order === self::ORDER_ASC || $order === self::ORDER_DESC) {
+			$this->order = $order;
+			return;
+		}
+		
+		throw new \LogicException(sprintf('Invalid sorting type: "%s", allowed types: "asc", "desc"', $order));
+	}
+	
+	/**
+	 * Get order
+	 * 
+	 * @return string ("asc" | "desc") | null
+	 */
+	public function getOrder()
+	{
+		return $this->order;
 	}
 }

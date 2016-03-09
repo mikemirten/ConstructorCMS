@@ -20,6 +20,10 @@ class GridController extends Controller
 		
 		$grid = new \Zext\GridBundle\Grid\Grid($src);
 		
+		if ($request->query->has('order')) {
+			$grid->orderBy($request->query->get('order'));
+		}
+		
 		return $this->render('ZextGridBundle:Grid:page.html.twig', [
 			'isAjax' => $request->isXmlHttpRequest(),
 			'grid'   => $grid

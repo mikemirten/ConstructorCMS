@@ -1,53 +1,47 @@
 <div class="panel panel-default">
 	<table class="{% block table_class %}table table-hover table-striped table-condensed{% endblock %}">
-		{% block table_colgroup %}
 		<colgroup>
 			{% for col in grid.columns %}
 			<col width="{{ col.width }}%" />
 			{% endfor %}
 		</colgroup>
-		{% endblock %}
 
-		{% block table_head %}
-			{% if grid.hasHead() %}
-			<thead>
-				{% for row in grid.head %}
-				<tr>
-					{% for cell in row %}
-					<th>{{ cell.content }}</th>
-					{% endfor %}
-				</tr>
-				{% endfor %}
-			</thead>
-			{% endif %}
-		{% endblock %}
+		<thead>
+			<tr>
+				{% for col in grid.columns %}
+				<th>
+					{{ col.title }}
+					
+					{% if col.orderable %}
+						{% set order = col.getOrder() %}
 
-		{% block table_body %}
-			{% if grid.hasBody() %}
-			<tbody>
-				{% for row in grid.body %}
-				<tr>
-					{% for cell in row %}
-					<td>{{ cell.content }}</td>
-					{% endfor %}
-				</tr>
+						{% if order is null %}
+							<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc" >
+								<span class="glyphicon glyphicon-triangle-bottom text-muted"></span>
+							</button>
+						{% elseif order == 'desc' %}
+							<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc">
+								<span class="glyphicon glyphicon-triangle-bottom"></span>
+							</button>
+						{% elseif order == 'asc' %}
+							<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="asc">
+								<span class="glyphicon glyphicon-triangle-top"></span>
+							</button>
+						{% endif %}
+					{% endif %}
+				</th>
 				{% endfor %}
-			</tbody>
-			{% endif %}
-		{% endblock %}
+			</tr>
+		</thead>
 
-		{% block table_foot %}
-			{% if grid.hasBody() %}
-			<tfoot>
-				{% for row in grid.foot %}
-				<tr>
-					{% for cell in row %}
-					<td>{{ cell.content }}</td>
-					{% endfor %}
-				</tr>
+		<tbody>
+			{% for row in grid.rows %}
+			<tr>
+				{% for cell in row %}
+				<td>{{ cell.content }}</td>
 				{% endfor %}
-			</tfoot>
-			{% endif %}
-		{% endblock %}
+			</tr>
+			{% endfor %}
+		</tbody>
 	</table>
 </div>
