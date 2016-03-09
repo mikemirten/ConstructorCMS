@@ -1,55 +1,53 @@
-<div class="zgrid-pane">
-	<div class="zgrid-body">
-		<table class="zgrid-table">
-			{% block table_colgroup %}
-			<colgroup>
-				{% for col in grid.columns %}
-				<col width="{{ col.width }}%" />
+<div class="panel panel-default">
+	<table class="{% block table_class %}table table-hover table-striped table-condensed{% endblock %}">
+		{% block table_colgroup %}
+		<colgroup>
+			{% for col in grid.columns %}
+			<col width="{{ col.width }}%" />
+			{% endfor %}
+		</colgroup>
+		{% endblock %}
+
+		{% block table_head %}
+			{% if grid.hasHead() %}
+			<thead>
+				{% for row in grid.head %}
+				<tr>
+					{% for cell in row %}
+					<th>{{ cell.content }}</th>
+					{% endfor %}
+				</tr>
 				{% endfor %}
-			</colgroup>
-			{% endblock %}
+			</thead>
+			{% endif %}
+		{% endblock %}
 
-			{% block table_head %}
-				{% if grid.hasHead() %}
-				<thead class="zgrid-table-head">
-					{% for row in grid.head %}
-					<tr class="zgrid-row zgrid-head-row">
-						{% for cell in row %}
-						<th class="zgrid-cell zgrid-head-cell">{{ cell.content }}</th>
-						{% endfor %}
-					</tr>
+		{% block table_body %}
+			{% if grid.hasBody() %}
+			<tbody>
+				{% for row in grid.body %}
+				<tr>
+					{% for cell in row %}
+					<td>{{ cell.content }}</td>
 					{% endfor %}
-				</thead>
-				{% endif %}
-			{% endblock %}
+				</tr>
+				{% endfor %}
+			</tbody>
+			{% endif %}
+		{% endblock %}
 
-			{% block table_body %}
-				{% if grid.hasBody() %}
-				<tbody class="zgrid-table-body">
-					{% for row in grid.body %}
-					<tr class="zgrid-row zgrid-body-row">
-						{% for cell in row %}
-						<td class="zgrid-cell zgrid-body-cell">{{ cell.content }}</td>
-						{% endfor %}
-					</tr>
+		{% block table_foot %}
+			{% if grid.hasBody() %}
+			<tfoot>
+				{% for row in grid.foot %}
+				<tr>
+					{% for cell in row %}
+					<td>{{ cell.content }}</td>
 					{% endfor %}
-				</tbody>
-				{% endif %}
-			{% endblock %}
-			
-			{% block table_foot %}
-				{% if grid.hasBody() %}
-				<tfoot class="zgrid-table-foot">
-					{% for row in grid.foot %}
-					<tr class="zgrid-row zgrid-foot-row">
-						{% for cell in row %}
-						<td class="zgrid-cell zgrid-foot-cell">{{ cell.content }}</td>
-						{% endfor %}
-					</tr>
-					{% endfor %}
-				</tfoot>
-				{% endif %}
-			{% endblock %}
-		</table>
-	</div>
+				</tr>
+				{% endfor %}
+			</tfoot>
+			{% endif %}
+		{% endblock %}
+	</table>
 </div>

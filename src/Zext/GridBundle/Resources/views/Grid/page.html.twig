@@ -1,0 +1,5 @@
+{% extends isAjax ? 'ZextGridBundle:Shared:ajax.html.twig' : 'ZextGridBundle:Shared:base.html.twig' %}
+
+{% block body %}
+	{% include 'ZextGridBundle:Grid:grid_bootstrap.html.twig' %}
+{% endblock %}
