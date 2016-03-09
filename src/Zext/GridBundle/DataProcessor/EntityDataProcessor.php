@@ -74,7 +74,9 @@ class EntityDataProcessor implements DataProcessorInterface
 		$this->propertiesList = new \SplDoublyLinkedList();
 			
 		foreach ($this->schemaProvider->getSchema() as $column) {
-			$this->propertiesList->push($column->getName());
+			$property = $column->getProperty() ?: $column->getName();
+			
+			$this->propertiesList->push($property);
 		}
 	}
 }

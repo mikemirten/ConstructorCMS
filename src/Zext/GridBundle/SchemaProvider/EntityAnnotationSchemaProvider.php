@@ -150,6 +150,7 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 		
 		$column->setTitle($annotation->title);
 		$column->setWidth($annotation->width);
+		$column->setProperty($annotation->property);
 		
 		return $column;
 	}

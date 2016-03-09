@@ -22,4 +22,11 @@ class Column
 	 * @var int
 	 */
 	public $width;
+	
+	/**
+	 * Property name
+	 *
+	 * @var string
+	 */
+	public $property;
 }

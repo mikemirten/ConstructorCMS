@@ -26,6 +26,13 @@ class Column
 	private $width;
 	
 	/**
+	 * Property name
+	 *
+	 * @var string
+	 */
+	private $property;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param string $name
@@ -87,5 +94,25 @@ class Column
 	public function getWidth()
 	{
 		return $this->width;
+	}
+	
+	/**
+	 * Set property name
+	 * 
+	 * @param string $property
+	 */
+	public function setProperty($property)
+	{
+		$this->property = $property;
+	}
+	
+	/**
+	 * Get property
+	 * 
+	 * @return string
+	 */
+	public function getProperty()
+	{
+		return $this->property;
 	}
 }
