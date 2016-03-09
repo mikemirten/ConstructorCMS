@@ -9,7 +9,7 @@ use Zext\GridBundle\SchemaProvider\SchemaProviderInterface;
 use Zext\GridBundle\Grid\Row;
 use Zext\GridBundle\Grid\Cell;
 
-class EntityDataProcessor implements DataProcessorInterface
+class PropertyAccessDataProcessor implements DataProcessorInterface
 {
 	/**
 	 * Property accessor
