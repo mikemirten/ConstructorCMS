@@ -7,7 +7,7 @@ interface SchemaProviderInterface
 	/**
 	 * Get columns
 	 * 
-	 * @return \Zext\GridBundle\Grid\Column[]
+	 * @return \Zext\GridBundle\Schema\Schema
 	 */
 	public function getSchema();
 }

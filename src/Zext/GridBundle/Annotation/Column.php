@@ -31,9 +31,16 @@ class Column
 	public $property;
 	
 	/**
-	 * Orderable by the column
+	 * Orderable
 	 *
 	 * @var boolean
 	 */
 	public $orderable = false;
+	
+	/**
+	 * Searchable
+	 *
+	 * @var boolean
+	 */
+	public $searchable = false;
 }

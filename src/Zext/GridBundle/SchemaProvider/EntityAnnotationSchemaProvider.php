@@ -9,7 +9,8 @@ use Zext\GridBundle\Annotation\Grid    as GridAnnotation;
 use Zext\GridBundle\Annotation\Column  as ColumnAnnotation;
 use Zext\GridBundle\Annotation\Exclude as ExcludeAnnotation;
 
-use Zext\GridBundle\Grid\Column;
+use Zext\GridBundle\Schema\Schema;
+use Zext\GridBundle\Schema\Field;
 
 class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 {
@@ -35,11 +36,11 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 	private $reflection;
 	
 	/**
-	 * Columns
+	 * Schema
 	 *
-	 * @var Column[]
+	 * @var Schema
 	 */
-	private $columns;
+	private $schema;
 	
 	/**
 	 * Constructor
@@ -57,41 +58,38 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
      */
 	public function getSchema()
 	{
-		if ($this->columns === null) {
-			$this->columns = $this->getColumns();
+		if ($this->schema === null) {
+			$this->schema = new Schema();
+			
+			$this->processFields();
 		}
 		
-		return $this->columns;
+		return $this->schema;
 	}
 	
 	/**
-	 * Get columns
-	 * 
-	 * @return Column[]
+	 * Get fields
 	 */
-	protected function getColumns()
+	protected function processFields()
 	{
 		$gridAnnotation = $this->getGridAnnotation();
 
 		if ($gridAnnotation === null || $gridAnnotation->strategy === GridAnnotation::STRATEGY_EXCLUDE) {
-			return $this->getColumnsByExcludeStrategy();
+			$this->addFieldsByExcludeStrategy();
+			return;
 		}
 
-		return $this->getColumnsByIncludeStrategy();
+		$this->addFieldsByIncludeStrategy();
 	}
 	
 	/**
-	 * Get column by properties with "Column" annotation
+	 * Add fields by properties with "Field" annotation
 	 * "Exclude" annotation will be ignored
-	 * 
-	 * @return Column[]
 	 */
-	protected function getColumnsByIncludeStrategy()
+	protected function addFieldsByIncludeStrategy()
 	{
 		$properties  = $this->getClassReflection()->getProperties();
 		$annotations = $this->getColumnAnnotations();
-		
-		$columns = [];
 		
 		foreach ($properties as $property) {
 			$name = $property->getName();
@@ -100,25 +98,22 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 				continue;
 			}
 			
-			$columns[] = $this->createColumnUsingAnnotation($name, $annotations[$name]);
+			$field = new Field($name);
+			$this->applyAnnotation($field, $annotations[$name]);
+			
+			$this->schema->addField($field);
 		}
-		
-		return $columns;
 	}
 	
 	/**
-	 * Get column by properties without "Exclude" annotation
-	 * 
-	 * @return Column[]
+	 * Add fields by properties without "Exclude" annotation
 	 */
-	protected function getColumnsByExcludeStrategy()
+	protected function addFieldsByExcludeStrategy()
 	{
 		$properties = $this->getClassReflection()->getProperties();
 		
 		$excludedAnnotations = $this->getExcludeAnnotations();
 		$columnsAnnotations  = $this->getColumnAnnotations();
-		
-		$columns = [];
 		
 		foreach ($properties as $property) {
 			$name = $property->getName();
@@ -127,33 +122,29 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 				continue;
 			}
 			
+			$field = new Field($name);
+			
 			if (isset($columnsAnnotations[$name])) {
-				$columns[$name] = $this->createColumnUsingAnnotation($name, $columnsAnnotations[$name]);
-				continue;
+				$this->applyAnnotation($field, $columnsAnnotations[$name]);
 			}
 			
-			$columns[$name] = new Column($name);
+			$this->schema->addField($field);
 		}
-		
-		return $columns;
 	}
 	
 	/**
-	 * Create column using annotation
+	 * Apply annotation to field
 	 * 
-	 * @param  ColumnAnnotation $annotation
-	 * @return Column
+	 * @param Field            $field
+	 * @param ColumnAnnotation $annotation
 	 */
-	protected function createColumnUsingAnnotation($name, ColumnAnnotation $annotation)
+	protected function applyAnnotation(Field $field, ColumnAnnotation $annotation)
 	{
-		$column = new Column($name);
-		
-		$column->setTitle($annotation->title);
-		$column->setWidth($annotation->width);
-		$column->setProperty($annotation->property);
-		$column->setOrderable($annotation->orderable);
-		
-		return $column;
+		$field->setTitle($annotation->title);
+		$field->setWidth($annotation->width);
+		$field->setProperty($annotation->property);
+		$field->setOrderable($annotation->orderable);
+		$field->setSearchable($annotation->searchable);
 	}
 	
 	/**
@@ -169,7 +160,7 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 	}
 	
 	/**
-	 * Get columns annotations
+	 * Get fields annotations
 	 * 
 	 * @return ExcludeAnnotation[]
 	 */
@@ -189,7 +180,7 @@ class EntityAnnotationSchemaProvider implements SchemaProviderInterface
 	}
 	
 	/**
-	 * Get columns annotations
+	 * Get fields annotations
 	 * 
 	 * @param  string $annotationName
 	 * @return array

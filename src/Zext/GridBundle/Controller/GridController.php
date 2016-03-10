@@ -9,20 +9,17 @@ class GridController extends Controller
 {
 	public function gridAction(Request $request)
 	{
-		$repo = $this->getDoctrine()->getRepository('AppCoreBundle:PageElementPlacement');
+		$repo = $this->getDoctrine()->getRepository('AppCoreBundle:Page');
 		
 		$reader = $this->get('annotation_reader');
 		$access = $this->get('property_accessor');
 		
 		$prvd = new \Zext\GridBundle\SchemaProvider\EntityAnnotationSchemaProvider($repo, $reader);
 		$proc = new \Zext\GridBundle\DataProcessor\PropertyAccessDataProcessor($access, $prvd);
-		$src  = new \Zext\GridBundle\Source\RepositorySource($repo, $prvd, $proc);
+		$src  = new \Zext\GridBundle\Source\SelectableSource($repo, $prvd, $proc);
+		$req  = new \Zext\GridBundle\Request\HttpRequest($request);
 		
-		$grid = new \Zext\GridBundle\Grid\Grid($src);
-		
-		if ($request->query->has('order')) {
-			$grid->orderBy($request->query->get('order'));
-		}
+		$grid = new \Zext\GridBundle\Grid\Grid($src, $req);
 		
 		return $this->render('ZextGridBundle:Grid:page.html.twig', [
 			'isAjax' => $request->isXmlHttpRequest(),

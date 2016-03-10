@@ -2,61 +2,35 @@
 
 namespace Zext\GridBundle\Grid;
 
+use Zext\GridBundle\Schema\Field;
+use Zext\GridBundle\Request\RequestInterface;
+
 class Column
 {
-	const ORDER_ASC  = 'asc';
-	const ORDER_DESC = 'desc';
-	
 	/**
-	 * Name
+	 * Field
 	 *
-	 * @var string
+	 * @var Field 
 	 */
-	private $name;
+	protected $field;
 	
 	/**
-	 * Title
+	 * Request
 	 *
-	 * @var string
+	 * @var RequestInterface 
 	 */
-	private $title;
-	
-	/**
-	 * width
-	 * 
-	 * @var int
-	 */
-	private $width;
-	
-	/**
-	 * Property name
-	 *
-	 * @var string
-	 */
-	private $property;
-	
-	/**
-	 * Orderable by the column
-	 *
-	 * @var bool 
-	 */
-	private $orderable = false;
-	
-	/**
-	 * Order ("asc" | "desc")
-	 *
-	 * @var string
-	 */
-	private $order;
+	protected $request;
 	
 	/**
 	 * Constructor
 	 * 
-	 * @param string $name
+	 * @param Field            $field
+	 * @param RequestInterface $request
 	 */
-	public function __construct($name)
+	public function __construct(Field $field, RequestInterface $request)
 	{
-		$this->name = $name;
+		$this->field   = $field;
+		$this->request = $request;
 	}
 	
 	/**
@@ -66,17 +40,7 @@ class Column
 	 */
 	public function getName()
 	{
-		return $this->name;
-	}
-	
-	/**
-	 * Set title
-	 * 
-	 * @param type $title
-	 */
-	public function setTitle($title)
-	{
-		return $this->title = $title;
+		return $this->field->getName();
 	}
 	
 	/**
@@ -86,21 +50,7 @@ class Column
 	 */
 	public function getTitle()
 	{
-		if ($this->title === null) {
-			return ucfirst($this->name);
-		}
-		
-		return $this->title;
-	}
-	
-	/**
-	 * Set width
-	 * 
-	 * @param int $width
-	 */
-	public function setWidth($width)
-	{
-		$this->width = $width;
+		return $this->field->getTitle();
 	}
 	
 	/**
@@ -110,37 +60,7 @@ class Column
 	 */
 	public function getWidth()
 	{
-		return $this->width;
-	}
-	
-	/**
-	 * Set property name
-	 * 
-	 * @param string $property
-	 */
-	public function setProperty($property)
-	{
-		$this->property = $property;
-	}
-	
-	/**
-	 * Get property
-	 * 
-	 * @return string
-	 */
-	public function getProperty()
-	{
-		return $this->property;
-	}
-	
-	/**
-	 * Set orderable
-	 * 
-	 * @param bool $orderable
-	 */
-	public function setOrderable($orderable = true)
-	{
-		$this->orderable = $orderable;
+		return $this->field->getWidth();
 	}
 	
 	/**
@@ -150,31 +70,36 @@ class Column
 	 */
 	public function isOrderable()
 	{
-		return $this->orderable;
+		return $this->field->isOrderable();
 	}
 	
 	/**
-	 * Set order
+	 * Is serchable ?
 	 * 
-	 * @param string $order
+	 * @return bool
 	 */
-	public function setOrder($order)
+	public function isSearchable()
 	{
-		if ($order === self::ORDER_ASC || $order === self::ORDER_DESC) {
-			$this->order = $order;
-			return;
-		}
-		
-		throw new \LogicException(sprintf('Invalid sorting type: "%s", allowed types: "asc", "desc"', $order));
+		return $this->field->isSearchable();
 	}
 	
 	/**
 	 * Get order
 	 * 
-	 * @return string ("asc" | "desc") | null
+	 * @return string | null
 	 */
 	public function getOrder()
 	{
-		return $this->order;
+		return $this->request->getOrderFor($this->getName());
+	}
+	
+	/**
+	 * Get search
+	 * 
+	 * @return string | null
+	 */
+	public function getSearch()
+	{
+		return $this->request->getSearchFor($this->getName());
 	}
 }

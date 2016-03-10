@@ -3,6 +3,9 @@
 namespace Zext\GridBundle\Grid;
 
 use Zext\GridBundle\Source\SourceInterface;
+use Zext\GridBundle\Request\RequestInterface;
+use Zext\GridBundle\Validator\RequestValidator;
+use Zext\GridBundle\Schema\Schema;
 
 class Grid
 {
@@ -11,7 +14,14 @@ class Grid
 	 *
 	 * @var SourceInterface
 	 */
-	private $source;
+	protected $source;
+	
+	/**
+	 * Request
+	 *
+	 * @var RequestInterface 
+	 */
+	protected $request;
 	
 	/**
 	 * Rows
@@ -21,9 +31,16 @@ class Grid
 	private $rows;
 	
 	/**
+	 * Schema
+	 *
+	 * @var Schema 
+	 */
+	private $schema;
+	
+	/**
 	 * Columns
 	 *
-	 * @var Column[]
+	 * @var Column
 	 */
 	private $columns;
 	
@@ -32,9 +49,10 @@ class Grid
 	 * 
 	 * @param SourceInterface $source
 	 */
-	public function __construct(SourceInterface $source = null)
+	public function __construct(SourceInterface $source, RequestInterface $request)
 	{
-		$this->source = $source;
+		$this->source  = $source;
+		$this->request = $request;
 	}
 	
 	/**
@@ -45,7 +63,14 @@ class Grid
 	public function getRows()
 	{
 		if ($this->rows === null) {
-			$this->rows = $this->source->getData();
+			$requestValidator = new RequestValidator($this->getSchema());
+			$errors = $requestValidator->validate($this->request);
+			
+			if (! empty($errors)) {
+				throw new \LogicException(implode(', ', $errors));
+			}
+			
+			$this->rows = $this->source->getData($this->request);
 		}
 		
 		return $this->rows;
@@ -59,37 +84,27 @@ class Grid
 	public function getColumns()
 	{
 		if ($this->columns === null) {
-			$this->columns = $this->source->getSchema();
+			$this->columns = [];
+			
+			foreach ($this->getSchema()->getFields() as $field) {
+				$this->columns[] = new Column($field, $this->request);
+			}
 		}
 		
 		return $this->columns;
 	}
 	
 	/**
-	 * Set order by
+	 * Get schema
 	 * 
-	 * @param  string $orderSrc
-	 * @throws \LogicException
+	 * @return Schema
 	 */
-	public function orderBy($orderSrc)
-	{	
-		foreach (explode(',', $orderSrc) as $orderDef) {
-			list ($column, $order) = explode(':', $orderDef);
-			
-			$column = trim($column);
-			$order  = trim(strtolower($order));
-			
-			$columns = $this->getColumns();
-			
-			if (! isset($columns[$column])) {
-				throw new \LogicException(sprintf('Column "%s" not found', $column));
-			}
-			
-			if (! $columns[$column]->isOrderable()) {
-				throw new \LogicException(sprintf('Column "%s" is not sortable', $column));
-			}
-			
-			$columns[$column]->setOrder($order);
+	public function getSchema()
+	{
+		if ($this->schema === null) {
+			$this->schema = $this->source->getSchema();
 		}
+		
+		return $this->schema;
 	}
 }

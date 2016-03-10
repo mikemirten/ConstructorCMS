@@ -13,25 +13,23 @@
 					{{ col.title }}
 					
 					{% if col.orderable %}
-						{% set order = col.getOrder() %}
-
-						{% if order is null %}
-							<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc" >
-								<span class="glyphicon glyphicon-triangle-bottom text-muted"></span>
-							</button>
-						{% elseif order == 'desc' %}
-							<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc">
-								<span class="glyphicon glyphicon-triangle-bottom"></span>
-							</button>
-						{% elseif order == 'asc' %}
-							<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="asc">
-								<span class="glyphicon glyphicon-triangle-top"></span>
-							</button>
-						{% endif %}
+						{{ _self.order(col) }}
 					{% endif %}
 				</th>
 				{% endfor %}
 			</tr>
+			
+			{% if grid.schema.hasSearchable() %}
+			<tr>
+				{% for col in grid.columns %}
+				<th>
+					{% if col.searchable %}
+						{{ _self.search(col) }}
+					{% endif %}
+				</th>
+				{% endfor %}
+			</tr>
+			{% endif %}
 		</thead>
 
 		<tbody>
@@ -45,3 +43,39 @@
 		</tbody>
 	</table>
 </div>
+
+{% macro order(col) %}
+	{% set order = col.getOrder() %}
+
+	{% if order is null %}
+		<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc" >
+			<span class="glyphicon glyphicon-triangle-bottom text-muted"></span>
+		</button>
+	{% elseif order == 'desc' %}
+		<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc">
+			<span class="glyphicon glyphicon-triangle-bottom"></span>
+		</button>
+	{% elseif order == 'asc' %}
+		<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="asc">
+			<span class="glyphicon glyphicon-triangle-top"></span>
+		</button>
+	{% endif %}
+{% endmacro %}
+
+{% macro search(col) %}
+	<div class="input-group input-group-sm" style="max-width: 200px;">
+		<input type="search" class="form-control" placeholder="Search by {{ col.title }}" value="{{ col.search }}" />
+
+		<span class="input-group-btn">
+			<button class="btn btn-default js-zgrid-param" data-param="search">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+
+			{% if col.search is not null %}
+			<button class="btn btn-default js-zgrid-param" data-param="search">
+				<span class="glyphicon glyphicon-remove"></span>
+			</button>
+			{% endif %}
+		</span>
+	</div>
+{% endmacro %}

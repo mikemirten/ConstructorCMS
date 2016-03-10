@@ -73,8 +73,8 @@ class PropertyAccessDataProcessor implements DataProcessorInterface
 		
 		$this->propertiesList = new \SplDoublyLinkedList();
 			
-		foreach ($this->schemaProvider->getSchema() as $column) {
-			$property = $column->getProperty() ?: $column->getName();
+		foreach ($this->schemaProvider->getSchema()->getFields() as $field) {
+			$property = $field->getProperty() ?: $field->getName();
 			
 			$this->propertiesList->push($property);
 		}
