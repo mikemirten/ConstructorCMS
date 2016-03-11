@@ -2,7 +2,7 @@
 
 namespace Zext\GridBundle\Grid;
 
-use Zext\GridBundle\Source\SourceInterface;
+use Zext\GridBundle\DataProvider\DataProviderInterface;
 use Zext\GridBundle\Request\RequestInterface;
 use Zext\GridBundle\Validator\RequestValidator;
 use Zext\GridBundle\Schema\Schema;
@@ -10,9 +10,9 @@ use Zext\GridBundle\Schema\Schema;
 class Grid
 {
 	/**
-	 * Source
+	 * DataProvider
 	 *
-	 * @var SourceInterface
+	 * @var DataProviderInterface
 	 */
 	protected $source;
 	
@@ -47,9 +47,9 @@ class Grid
 	/**
 	 * Constructor
 	 * 
-	 * @param SourceInterface $source
+	 * @param DataProviderInterface $source
 	 */
-	public function __construct(SourceInterface $source, RequestInterface $request)
+	public function __construct(DataProviderInterface $source, RequestInterface $request)
 	{
 		$this->source  = $source;
 		$this->request = $request;

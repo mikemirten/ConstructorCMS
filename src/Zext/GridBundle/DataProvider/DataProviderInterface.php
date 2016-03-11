@@ -1,11 +1,11 @@
 <?php
 
-namespace Zext\GridBundle\Source;
+namespace Zext\GridBundle\DataProvider;
 
 use Zext\GridBundle\SchemaProvider\SchemaProviderInterface;
 use Zext\GridBundle\Request\RequestInterface;
 
-interface SourceInterface extends SchemaProviderInterface
+interface DataProviderInterface extends SchemaProviderInterface
 {	
 	/**
 	 * Get rows with data

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zext\GridBundle\Source;
+namespace Zext\GridBundle\DataProvider;
 
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\Common\Collections\Criteria;
@@ -9,7 +9,7 @@ use Zext\GridBundle\SchemaProvider\SchemaProviderInterface;
 use Zext\GridBundle\DataProcessor\DataProcessorInterface;
 use Zext\GridBundle\Request\RequestInterface;
 
-class SelectableSource implements SourceInterface
+class SelectableDataProvider implements DataProviderInterface
 {
 	
 	

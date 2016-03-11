@@ -1,15 +1,15 @@
 <?php
 
-namespace Zext\GridBundle\Source;
+namespace Zext\GridBundle\DataProvider;
 
 use Zext\GridBundle\Grid\Row;
 use Zext\GridBundle\Grid\Cell;
 use Zext\GridBundle\Grid\Column;
 
-class ArraySource implements SourceInterface
+class ArrayDataProvider implements DataProviderInterface
 {
 	/**
-	 * Source
+	 * DataProvider
 	 *
 	 * @var array
 	 */

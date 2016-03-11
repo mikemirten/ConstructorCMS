@@ -16,7 +16,7 @@ class GridController extends Controller
 		
 		$prvd = new \Zext\GridBundle\SchemaProvider\EntityAnnotationSchemaProvider($repo, $reader);
 		$proc = new \Zext\GridBundle\DataProcessor\PropertyAccessDataProcessor($access, $prvd);
-		$src  = new \Zext\GridBundle\Source\SelectableSource($repo, $prvd, $proc);
+		$src  = new \Zext\GridBundle\DataProvider\SelectableDataProvider($repo, $prvd, $proc);
 		$req  = new \Zext\GridBundle\Request\HttpRequest($request);
 		
 		$grid = new \Zext\GridBundle\Grid\Grid($src, $req);
