@@ -54,13 +54,29 @@
 			<span class="glyphicon glyphicon-triangle-bottom text-muted"></span>
 		</button>
 	{% elseif order == 'desc' %}
-		<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:asc)">
-			<span class="glyphicon glyphicon-triangle-bottom"></span>
-		</button>
+		<div class="btn-group">
+			<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:asc)">
+				<span class="glyphicon glyphicon-triangle-bottom"></span>
+			</button>
+				
+			<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.remove({{ col.name }}:*)">
+				<span class="glyphicon glyphicon-remove text-muted"></span>
+			</button>
+		</div>
 	{% elseif order == 'asc' %}
-		<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:desc)">
-			<span class="glyphicon glyphicon-triangle-top"></span>
-		</button>
+		<div class="btn-group">
+			<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:desc)">
+				<span class="glyphicon glyphicon-triangle-top"></span>
+			</button>
+			
+			<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.remove({{ col.name }}:*)">
+				<span class="glyphicon glyphicon-remove text-muted"></span>
+			</button>
+		</div>
+	{% endif %}
+	
+	{% if order is not null %}
+		
 	{% endif %}
 {% endmacro %}
 
