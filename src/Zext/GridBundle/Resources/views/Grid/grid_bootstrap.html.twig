@@ -1,62 +1,64 @@
 <div class="panel panel-default">
-	<table class="{% block table_class %}table table-hover table-striped table-condensed{% endblock %}">
-		<colgroup>
-			{% for col in grid.columns %}
-			<col width="{{ col.width }}%" />
-			{% endfor %}
-		</colgroup>
-
-		<thead>
-			<tr>
+	<div class="table-responsive">
+		<table class="{% block table_class %}table table-hover table-striped table-condensed table-bordered{% endblock %}">
+			<colgroup>
 				{% for col in grid.columns %}
-				<th>
-					{{ col.title }}
-					
-					{% if col.orderable %}
-						{{ _self.order(col) }}
-					{% endif %}
-				</th>
+				<col width="{{ col.width }}%" />
 				{% endfor %}
-			</tr>
-			
-			{% if grid.schema.hasSearchable() %}
-			<tr>
-				{% for col in grid.columns %}
-				<th>
-					{% if col.searchable %}
-						{{ _self.search(col) }}
-					{% endif %}
-				</th>
-				{% endfor %}
-			</tr>
-			{% endif %}
-		</thead>
+			</colgroup>
 
-		<tbody>
-			{% for row in grid.rows %}
-			<tr>
-				{% for cell in row %}
-				<td>{{ cell.content }}</td>
+			<thead>
+				<tr>
+					{% for col in grid.columns %}
+					<th{% if col.order is not null %} class="info"{% endif %}>
+						{{ col.title }}
+
+						{% if col.orderable %}
+							{{ _self.order(col) }}
+						{% endif %}
+					</th>
+					{% endfor %}
+				</tr>
+
+				{% if grid.schema.hasSearchable() %}
+				<tr>
+					{% for col in grid.columns %}
+					<th{% if col.search is not null %} class="warning"{% endif %}>
+						{% if col.searchable %}
+							{{ _self.search(col) }}
+						{% endif %}
+					</th>
+					{% endfor %}
+				</tr>
+				{% endif %}
+			</thead>
+
+			<tbody>
+				{% for row in grid.rows %}
+				<tr>
+					{% for cell in row %}
+					<td>{{ cell.content }}</td>
+					{% endfor %}
+				</tr>
 				{% endfor %}
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 {% macro order(col) %}
 	{% set order = col.getOrder() %}
 
 	{% if order is null %}
-		<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc" >
+		<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:desc)">
 			<span class="glyphicon glyphicon-triangle-bottom text-muted"></span>
 		</button>
 	{% elseif order == 'desc' %}
-		<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="desc">
+		<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:asc)">
 			<span class="glyphicon glyphicon-triangle-bottom"></span>
 		</button>
 	{% elseif order == 'asc' %}
-		<button class="btn btn-link btn-xs js-zgrid-param" data-param="order" data-value="asc">
+		<button class="btn btn-link btn-xs js-zgrid-param" data-definition="order.replace({{ col.name }}:desc)">
 			<span class="glyphicon glyphicon-triangle-top"></span>
 		</button>
 	{% endif %}
@@ -64,15 +66,15 @@
 
 {% macro search(col) %}
 	<div class="input-group input-group-sm" style="max-width: 200px;">
-		<input type="search" class="form-control" placeholder="Search by {{ col.title }}" value="{{ col.search }}" />
+		<input id="zgrid_search_{{ col.name}}" type="search" class="form-control" placeholder="Search by {{ col.title }}" value="{{ col.search }}" />
 
 		<span class="input-group-btn">
-			<button class="btn btn-default js-zgrid-param" data-param="search">
+			<button class="btn btn-default js-zgrid-param" data-definition="search.set({{ col.name }}:[#zgrid_search_{{ col.name}}])">
 				<span class="glyphicon glyphicon-search"></span>
 			</button>
 
 			{% if col.search is not null %}
-			<button class="btn btn-default js-zgrid-param" data-param="search">
+			<button class="btn btn-default js-zgrid-param" data-definition="search.remove({{ col.name }}:*)">
 				<span class="glyphicon glyphicon-remove"></span>
 			</button>
 			{% endif %}
