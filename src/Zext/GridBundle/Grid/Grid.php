@@ -63,6 +63,26 @@ class Grid
 	}
 	
 	/**
+	 * Set title
+	 * 
+	 * @param string $title
+	 */
+	public function setTitle($title)
+	{
+		$this->title = $title;
+	}
+	
+	/**
+	 * Get title
+	 * 
+	 * @return string
+	 */
+	public function getTitle()
+	{
+		return $this->title;
+	}
+	
+	/**
 	 * Is GRID globally searchable ?
 	 * 
 	 * @return bool
