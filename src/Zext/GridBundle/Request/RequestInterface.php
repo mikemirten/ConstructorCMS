@@ -63,4 +63,11 @@ interface RequestInterface
 	 * @param string | null
 	 */
 	public function getSearchFor($name);
+	
+	/**
+	 * Get global search
+	 * 
+	 * @return string
+	 */
+	public function getGlobalSearch();
 }

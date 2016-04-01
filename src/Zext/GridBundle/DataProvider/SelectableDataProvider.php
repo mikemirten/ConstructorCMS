@@ -65,6 +65,7 @@ class SelectableDataProvider implements DataProviderInterface
 		
 		$this->processOrder($criteria, $request);
 		$this->processSearch($criteria, $request);
+		$this->processGlobalSearch($criteria, $request);
 		
 		$result = $this->collection->matching($criteria);
 		
@@ -91,7 +92,8 @@ class SelectableDataProvider implements DataProviderInterface
 	/**
 	 * Process order
 	 * 
-	 * @return array
+	 * @param Criteria         $criteria
+	 * @param RequestInterface $request
 	 */
 	protected function processOrder(Criteria $criteria, RequestInterface $request)
 	{
@@ -101,12 +103,37 @@ class SelectableDataProvider implements DataProviderInterface
 	/**
 	 * Process order
 	 * 
-	 * @return array
+	 * @param Criteria         $criteria
+	 * @param RequestInterface $request
 	 */
 	protected function processSearch(Criteria $criteria, RequestInterface $request)
 	{
 		foreach ($request->getSearch() as $field => $value) {
 			$criteria->andWhere(Criteria::expr()->contains($field, $value));
 		}
+	}
+	
+	/**
+	 * Process global search
+	 * 
+	 * @param Criteria         $criteria
+	 * @param RequestInterface $request
+	 */
+	protected function processGlobalSearch(Criteria $criteria, RequestInterface $request)
+	{
+		$query = $request->getGlobalSearch();
+		
+		if ($query === null) {
+			return;
+		}
+		
+		$condition = call_user_func_array([Criteria::expr(), 'orX'], array_map(
+			function($name) use($query) {
+				return Criteria::expr()->contains($name, $query);
+			},
+			$this->schemaProvider->getSchema()->getGloballySearchableNames()
+		));
+		
+		$criteria->andWhere($condition);
 	}
 }

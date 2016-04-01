@@ -95,6 +95,40 @@ class Schema
 	}
 	
 	/**
+	 * Has at least one field involved in global search ?
+	 * 
+	 * @return bool
+	 */
+	public function hasGloballySearchable()
+	{
+		foreach ($this->fields as $field) {
+			if ($field->isGloballySearchable()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Get globally searchable fild names
+	 * 
+	 * @return array
+	 */
+	public function getGloballySearchableNames()
+	{
+		$names = [];
+		
+		foreach ($this->fields as $field) {
+			if ($field->isGloballySearchable()) {
+				$names[] = $field->getName();
+			}
+		}
+		
+		return $names;
+	}
+	
+	/**
 	 * Is the schema empty ?
 	 * 
 	 * @return bool

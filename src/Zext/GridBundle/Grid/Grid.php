@@ -45,6 +45,13 @@ class Grid
 	private $columns;
 	
 	/**
+	 * Title
+	 *
+	 * @var string
+	 */
+	private $title;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param DataProviderInterface $source
@@ -53,6 +60,26 @@ class Grid
 	{
 		$this->source  = $source;
 		$this->request = $request;
+	}
+	
+	/**
+	 * Is GRID globally searchable ?
+	 * 
+	 * @return bool
+	 */
+	public function isGloballySearchable()
+	{
+		return $this->getSchema()->hasGloballySearchable();
+	}
+	
+	/**
+	 * Get global search string if defined
+	 * 
+	 * @return string | null
+	 */
+	public function getGlobalSearch()
+	{
+		return $this->request->getGlobalSearch();
 	}
 	
 	/**

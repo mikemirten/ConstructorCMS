@@ -28,6 +28,13 @@ class HttpRequest implements RequestInterface
 	private $search;
 	
 	/**
+	 * Resolved global search
+	 *
+	 * @var array
+	 */
+	private $globalSearch;
+	
+	/**
 	 * Constructor
 	 * 
 	 * @param HttpFoundationRequest $request
@@ -98,6 +105,20 @@ class HttpRequest implements RequestInterface
 		
 		if (isset($search[$name])) {
 			return $search[$name];
+		}
+	}
+	
+	/**
+     * {@inheritdoc}
+     */
+	public function getGlobalSearch()
+	{
+		if ($this->globalSearch === null) {
+			$this->globalSearch = $this->fetchDefinition('globalSearch');
+		}
+		
+		if (isset($this->globalSearch['query'])) {
+			return $this->globalSearch['query'];
 		}
 	}
 	

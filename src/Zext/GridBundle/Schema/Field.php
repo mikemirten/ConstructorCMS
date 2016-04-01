@@ -45,6 +45,13 @@ class Field
 	 * @var bool
 	 */
 	private $searchable = false;
+	
+	/**
+	 * Involved in global search
+	 *
+	 * @var bool
+	 */
+	private $globalSearchable = false;
 
 	/**
 	 * Constructor
@@ -168,5 +175,25 @@ class Field
 	public function isSearchable()
 	{
 		return $this->searchable;
+	}
+	
+	/**
+	 * Set globally searchable
+	 * 
+	 * @param bool $searchable
+	 */
+	public function setGloballySearchable($searchable = true)
+	{
+		$this->globalSearchable = $searchable;
+	}
+	
+	/**
+	 * Is globally serchable ?
+	 * 
+	 * @return bool
+	 */
+	public function isGloballySearchable()
+	{
+		return $this->globalSearchable;
 	}
 }

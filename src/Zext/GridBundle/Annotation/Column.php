@@ -43,4 +43,11 @@ class Column
 	 * @var boolean
 	 */
 	public $searchable = false;
+	
+	/**
+	 * Involved in global search
+	 *
+	 * @var boolean
+	 */
+	public $globalSearch = false;
 }
