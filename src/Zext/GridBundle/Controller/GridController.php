@@ -20,6 +20,7 @@ class GridController extends Controller
 		$req  = new \Zext\GridBundle\Request\HttpRequest($request);
 		
 		$grid = new \Zext\GridBundle\Grid\Grid($src, $req);
+		$grid->setTitle('Page');
 		
 		return $this->render('ZextGridBundle:Grid:page.html.twig', [
 			'isAjax' => $request->isXmlHttpRequest(),

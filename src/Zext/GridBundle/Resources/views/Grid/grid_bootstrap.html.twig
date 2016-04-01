@@ -1,4 +1,48 @@
 <div class="panel panel-default">
+	{% if grid.title is not null %}
+	<div class="panel-heading">{{ grid.title }}</div>
+	{% endif %}
+	
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-6">
+				{% if grid.globallySearchable %}
+				<div class="input-group">
+					<input id="zgrid_global_search" type="search" class="form-control" placeholder="Search" value="{{ grid.globalSearch }}" />
+
+					<span class="input-group-btn">
+						<button class="btn btn-default js-zgrid-param" data-definition="globalSearch.replace(query:[#zgrid_global_search])">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+
+						{% if grid.globalSearch is not null %}
+						<button class="btn btn-default js-zgrid-param" data-definition="globalSearch.remove(query:*)">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+						{% endif %}
+					</span>
+				</div>
+				{% endif %}
+			</div>
+			
+			<div class="col-md-6">
+				<nav class="pull-right">
+					<div class="btn-group">
+						<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Columns <span class="caret"></span></button>
+
+						<ul class="dropdown-menu">
+							{% for col in grid.columns %}
+							<li><a href="#"><span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ col.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+						
+					<button class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span>&nbsp;&nbsp;Refresh</button>
+				</nav>
+			</div>
+		</div>
+	</div>
+	
 	<div class="table-responsive">
 		<table class="{% block table_class %}table table-hover table-striped table-condensed table-bordered{% endblock %}">
 			<colgroup>
@@ -43,6 +87,28 @@
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+			
+	<div class="panel-body">
+		<nav>
+			<ul class="pagination" style="margin: 0;">
+				<li><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
+				<li><a href="#">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+			</ul>
+			
+			<div class="btn-group pull-right">
+				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">10 per page <span class="caret"></span></button>
+
+				<ul class="dropdown-menu">
+					<li><a href="#">Action</a></li>
+					<li><a href="#">Another action</a></li>
+				</ul>
+			</div>
+		</nav>
 	</div>
 </div>
 
