@@ -98,6 +98,10 @@ $(function() {
 			}
 			
 			delete params[action.param][action.field];
+			
+			if ($.isEmptyObject(params[action.param])) {
+				delete params[action.param];
+			}
 		}
 	};
 	
